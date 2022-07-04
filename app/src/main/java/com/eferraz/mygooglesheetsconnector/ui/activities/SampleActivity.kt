@@ -1,4 +1,4 @@
-package com.eferraz.mygooglesheetsconnector
+package com.eferraz.mygooglesheetsconnector.ui.activities
 
 import android.os.Bundle
 import androidx.activity.compose.setContent
@@ -16,15 +16,15 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import com.eferraz.mygooglesheetsconnector.GoogleSheetsViewModel.UiState.Loading
-import com.eferraz.mygooglesheetsconnector.GoogleSheetsViewModel.UiState.Success
+import com.eferraz.mygooglesheetsconnector.GoogleSheetsViewModel
+import com.eferraz.mygooglesheetsconnector.GoogleSheetsViewModel.UiState.*
 import com.eferraz.mygooglesheetsconnector.entities.FixedIncome
 import com.eferraz.mygooglesheetsconnector.google.GoogleSignInActivity
 import com.eferraz.mygooglesheetsconnector.ui.theme.MyGoogleSheetsConnectorTheme
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class LoginActivity : GoogleSignInActivity() {
+class SampleActivity : GoogleSignInActivity() {
 
     private val vm: GoogleSheetsViewModel by viewModels()
 
@@ -36,12 +36,17 @@ class LoginActivity : GoogleSignInActivity() {
                 Surface(modifier = Modifier.fillMaxSize(), color = MaterialTheme.colorScheme.background) {
 
                     when (val state = vm.uiState.collectAsState().value) {
-                        is Success -> Lista(state.data) { vm.append() }
                         is Loading -> {}
+                        is Success -> Lista(state.data) { vm.append() }
+                        is Failure -> state.intent?.let { registerThrowableResult.launch(it) }
                     }
                 }
             }
         }
+    }
+
+    override fun onSignInReady() {
+        vm.getData()
     }
 }
 
@@ -62,7 +67,7 @@ fun Lista(data: List<FixedIncome>, function: (() -> Unit)? = null) {
 
 @Composable
 fun Greeting(name: String, function: (() -> Unit)? = null) {
-    Text(text = "$name!", Modifier.clickable {
+    Text(text = name, Modifier.clickable {
         function?.invoke()
     })
 }

@@ -1,53 +1,67 @@
 package com.eferraz.mygooglesheetsconnector.google
 
+
 import android.app.Activity
+import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.result.contract.ActivityResultContracts.StartActivityForResult
+import com.eferraz.mygooglesheetsconnector.R
+import com.google.android.gms.auth.UserRecoverableAuthException
 import com.google.android.gms.auth.api.signin.GoogleSignIn
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount
+import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
-import com.google.api.client.googleapis.extensions.android.gms.auth.GoogleAccountCredential
 import com.google.api.client.googleapis.extensions.android.gms.auth.UserRecoverableAuthIOException
-import com.google.api.client.util.ExponentialBackOff
-import com.google.api.services.sheets.v4.SheetsScopes
-import javax.inject.Inject
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.GoogleAuthProvider
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 
-open class GoogleSignInActivity : ComponentActivity() {
 
-    @Inject
-    lateinit var provider: SheetsProvider
+abstract class GoogleSignInActivity : ComponentActivity() {
+
+    private lateinit var client: GoogleSignInClient
+    private lateinit var auth: FirebaseAuth
+
+    val registerThrowableResult = registerForActivityResult(StartActivityForResult()) { signOut() }
+
+    private val registerSuccessfulResult = registerForActivityResult(StartActivityForResult()) { result ->
+        if (result.resultCode == Activity.RESULT_OK) {
+            val idToken = GoogleSignIn.getSignedInAccountFromIntent(result.data).getResult(ApiException::class.java).idToken!!
+            auth.signInWithCredential(GoogleAuthProvider.getCredential(idToken, null)).addOnCompleteListener(this) { task ->
+                if (task.isSuccessful) onSignInReady()
+            }
+        }
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+
+        super.onCreate(savedInstanceState)
+
+        client = GoogleSignIn.getClient(
+            this, GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(getString(R.string.default_web_client_id))
+                .requestEmail()
+                .build()
+        )
+
+        auth = Firebase.auth
+    }
 
     override fun onStart() {
         super.onStart()
-        checkIfSignedIn()
+        if (auth.currentUser == null) signIn() else onSignInReady()
     }
 
-    private fun checkIfSignedIn() {
-        GoogleSignIn.getLastSignedInAccount(this).let { account ->
-            if (account == null) signIn() else storeCredentials(account)
-        }
+    private fun signIn() {
+        registerSuccessfulResult.launch(client.signInIntent)
     }
 
-    private fun storeCredentials(account: GoogleSignInAccount) {
-        provider.credential = GoogleAccountCredential.usingOAuth2(this, SheetsScopes.all()).setBackOff(ExponentialBackOff()).also {
-            it.selectedAccount = account.account
-        }
+    private fun signOut() {
+        client.signOut()
+        auth.signOut()
+        finish()
     }
 
-    fun safeCall(function: () -> Unit) {
-        try {
-            function()
-        } catch (e: Throwable) {
-            if (e is UserRecoverableAuthIOException) registerForActivityResult(StartActivityForResult()) { }.launch(e.intent)
-        }
-    }
-
-    private fun signIn() = registerForActivityResult(StartActivityForResult()) { result ->
-        if (result.resultCode == Activity.RESULT_OK) {
-            storeCredentials(GoogleSignIn.getSignedInAccountFromIntent(result.data).getResult(ApiException::class.java))
-        }
-    }.launch(
-        GoogleSignIn.getClient(this, GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().build()).signInIntent
-    )
+    abstract fun onSignInReady()
 }

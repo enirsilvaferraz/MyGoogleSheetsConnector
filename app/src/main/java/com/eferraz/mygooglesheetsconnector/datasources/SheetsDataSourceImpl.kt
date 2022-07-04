@@ -1,11 +1,11 @@
 package com.eferraz.mygooglesheetsconnector.datasources
 
-import com.eferraz.mygooglesheetsconnector.google.SheetsProvider
+import com.eferraz.mygooglesheetsconnector.google.SheetsInstanceProvider
 import com.google.api.services.sheets.v4.model.ValueRange
 import javax.inject.Inject
 
 class SheetsDataSourceImpl @Inject constructor(
-    private val sheetsProvider: SheetsProvider
+    private val sheetsProvider: SheetsInstanceProvider
 ) : SheetsDataSource {
 
     /**
