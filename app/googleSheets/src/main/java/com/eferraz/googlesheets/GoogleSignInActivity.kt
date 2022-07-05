@@ -1,17 +1,15 @@
-package com.eferraz.mygooglesheetsconnector.google
+package com.eferraz.googlesheets
 
 
 import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.result.contract.ActivityResultContracts.StartActivityForResult
-import com.eferraz.mygooglesheetsconnector.R
-import com.google.android.gms.auth.UserRecoverableAuthException
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
-import com.google.api.client.googleapis.extensions.android.gms.auth.UserRecoverableAuthIOException
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.auth.ktx.auth
@@ -26,21 +24,14 @@ abstract class GoogleSignInActivity : ComponentActivity() {
     val registerThrowableResult = registerForActivityResult(StartActivityForResult()) { signOut() }
 
     private val registerSuccessfulResult = registerForActivityResult(StartActivityForResult()) { result ->
-        if (result.resultCode == Activity.RESULT_OK) {
-            val idToken = GoogleSignIn.getSignedInAccountFromIntent(result.data).getResult(ApiException::class.java).idToken!!
-            auth.signInWithCredential(GoogleAuthProvider.getCredential(idToken, null)).addOnCompleteListener(this) { task ->
-                if (task.isSuccessful) onSignInReady()
-            }
-        }
+        if (result.resultCode == Activity.RESULT_OK) firebaseSignIn(getToken(result.data))
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-
-        super.onCreate(savedInstanceState)
+    open fun configureGoogleSignIn(webClientId: String) {
 
         client = GoogleSignIn.getClient(
             this, GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestIdToken(getString(R.string.default_web_client_id))
+                .requestIdToken(webClientId)
                 .requestEmail()
                 .build()
         )
@@ -61,6 +52,14 @@ abstract class GoogleSignInActivity : ComponentActivity() {
         client.signOut()
         auth.signOut()
         finish()
+    }
+
+    private fun getToken(result: Intent?) = GoogleSignIn.getSignedInAccountFromIntent(result).getResult(ApiException::class.java).idToken!!
+
+    private fun firebaseSignIn(idToken: String) {
+        auth.signInWithCredential(GoogleAuthProvider.getCredential(idToken, null)).addOnCompleteListener(this) { task ->
+            if (task.isSuccessful) onSignInReady()
+        }
     }
 
     abstract fun onSignInReady()

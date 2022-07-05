@@ -1,4 +1,4 @@
-package com.eferraz.mygooglesheetsconnector.google
+package com.eferraz.googlesheets.providers
 
 import android.content.Context
 import com.google.android.gms.auth.api.signin.GoogleSignIn

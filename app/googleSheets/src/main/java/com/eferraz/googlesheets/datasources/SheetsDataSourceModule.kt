@@ -1,4 +1,4 @@
-package com.eferraz.mygooglesheetsconnector.datasources
+package com.eferraz.googlesheets.datasources
 
 import dagger.Binds
 import dagger.Module

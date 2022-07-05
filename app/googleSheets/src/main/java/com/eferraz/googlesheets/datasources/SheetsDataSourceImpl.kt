@@ -1,6 +1,8 @@
-package com.eferraz.mygooglesheetsconnector.datasources
+package com.eferraz.googlesheets.datasources
 
-import com.eferraz.mygooglesheetsconnector.google.SheetsInstanceProvider
+import com.eferraz.googlesheets.providers.SheetsInstanceProvider
+import com.google.android.gms.auth.UserRecoverableAuthException
+import com.google.api.client.googleapis.extensions.android.gms.auth.UserRecoverableAuthIOException
 import com.google.api.services.sheets.v4.model.ValueRange
 import javax.inject.Inject
 
@@ -11,7 +13,7 @@ class SheetsDataSourceImpl @Inject constructor(
     /**
      * https://developers.google.com/sheets/api/reference/rest/v4/spreadsheets.values/append
      */
-    override fun append(sheetID: String, range: String?, values: MutableList<MutableList<*>>) {
+    override fun append(sheetID: String, range: String?, values: MutableList<MutableList<*>>) = runCatching {
 
         val body = ValueRange().apply {
             majorDimension = Dimension.ROWS.name
@@ -25,14 +27,28 @@ class SheetsDataSourceImpl @Inject constructor(
         }
 
         request.execute()
+
+        DataSourceResponse.Success<Unit>()
+
+    }.getOrElse {
+        createFailure(it)
     }
 
-    override fun get(sheetID: String, range: String?): MutableList<MutableList<*>> {
+    override fun get(sheetID: String, range: String?): DataSourceResponse = runCatching {
 
         val request = sheetsProvider.getSheets().spreadsheets().values().get(sheetID, range)
         val response: ValueRange = request.execute()
 
-        return response.getValues()
+        DataSourceResponse.Success(response.getValues())
+
+    }.getOrElse {
+        createFailure(it)
+    }
+
+    private fun createFailure(it: Throwable) = when (it) {
+        is UserRecoverableAuthIOException -> DataSourceResponse.Failure(it, it.intent)
+        is UserRecoverableAuthException -> DataSourceResponse.Failure(it, it.intent)
+        else -> DataSourceResponse.Failure(it)
     }
 
     private enum class ValueInputOption {

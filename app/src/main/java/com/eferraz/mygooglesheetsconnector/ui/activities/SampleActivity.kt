@@ -19,7 +19,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.eferraz.mygooglesheetsconnector.GoogleSheetsViewModel
 import com.eferraz.mygooglesheetsconnector.GoogleSheetsViewModel.UiState.*
 import com.eferraz.mygooglesheetsconnector.entities.FixedIncome
-import com.eferraz.mygooglesheetsconnector.google.GoogleSignInActivity
+import com.eferraz.googlesheets.GoogleSignInActivity
+import com.eferraz.mygooglesheetsconnector.R
 import com.eferraz.mygooglesheetsconnector.ui.theme.MyGoogleSheetsConnectorTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -30,6 +31,8 @@ class SampleActivity : GoogleSignInActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        configureGoogleSignIn(getString(R.string.default_web_client_id))
+
         setContent {
 
             MyGoogleSheetsConnectorTheme {
