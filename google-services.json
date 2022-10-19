@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "79603694721",
+    "project_id": "ordinal-tower-353421",
+    "storage_bucket": "ordinal-tower-353421.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:79603694721:android:1bedbd3c3dd38934772180",
+        "android_client_info": {
+          "package_name": "com.eferraz.mygooglesheetsconnector"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "79603694721-5hcjdgb0mufkgbbfpttpd3ovvoer2s5t.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.eferraz.mygooglesheetsconnector",
+            "certificate_hash": "27b00afb3eee376a627cc39491c13adcd91b3ca6"
+          }
+        },
+        {
+          "client_id": "79603694721-c9ibue26n9cvg8rp9rg5dsophgam00g0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAX1g9jgRtM0xFy5Lbh485IX47Tw3CyLbc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "79603694721-c9ibue26n9cvg8rp9rg5dsophgam00g0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

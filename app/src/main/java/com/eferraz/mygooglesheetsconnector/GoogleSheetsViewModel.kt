@@ -32,7 +32,7 @@ class GoogleSheetsViewModel @Inject constructor(
     }
 
     fun append() = viewModelScope.launch(IO) {
-        repo.append(FixedIncome("A", "B", "C", "D", "E"))
+        //repo.append(FixedIncome("A", "B", "C", "D", "E"))
         getData()
     }
 

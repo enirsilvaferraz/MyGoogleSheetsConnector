@@ -15,12 +15,12 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
+import com.eferraz.googlesheets.GoogleSignInActivity
 import com.eferraz.mygooglesheetsconnector.GoogleSheetsViewModel
 import com.eferraz.mygooglesheetsconnector.GoogleSheetsViewModel.UiState.*
 import com.eferraz.mygooglesheetsconnector.entities.FixedIncome
-import com.eferraz.googlesheets.GoogleSignInActivity
-import com.eferraz.mygooglesheetsconnector.R
 import com.eferraz.mygooglesheetsconnector.ui.theme.MyGoogleSheetsConnectorTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -31,7 +31,6 @@ class SampleActivity : GoogleSignInActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        configureGoogleSignIn(getString(R.string.default_web_client_id))
 
         setContent {
 
@@ -40,7 +39,7 @@ class SampleActivity : GoogleSignInActivity() {
 
                     when (val state = vm.uiState.collectAsState().value) {
                         is Loading -> {}
-                        is Success -> Lista(state.data) { vm.append() }
+                        is Success -> Lista(state.data) { }
                         is Failure -> state.intent?.let { registerThrowableResult.launch(it) }
                     }
                 }
@@ -58,11 +57,11 @@ fun Lista(data: List<FixedIncome>, function: (() -> Unit)? = null) {
     LazyColumn {
         items(data) { dataItem ->
             Row {
-                Column { Greeting(dataItem.col1, function) }
-                Column { Greeting(dataItem.col2, function) }
-                Column { Greeting(dataItem.col3, function) }
-                Column { Greeting(dataItem.col4, function) }
-                Column { Greeting(dataItem.col5, function) }
+                Column(Modifier.weight(.1f)) { Greeting(dataItem.col1, function) }
+                Column(Modifier.weight(.05f)) { Greeting(dataItem.col2, function) }
+                Column(Modifier.weight(.55f)) { Greeting(dataItem.col3, function) }
+                Column(Modifier.weight(.2f)) { Greeting(dataItem.col4, function) }
+                //Column(Modifier.weight(.2f)) { Greeting(dataItem.col5, function) }
             }
         }
     }
@@ -70,7 +69,7 @@ fun Lista(data: List<FixedIncome>, function: (() -> Unit)? = null) {
 
 @Composable
 fun Greeting(name: String, function: (() -> Unit)? = null) {
-    Text(text = name, Modifier.clickable {
+    Text(text = name, maxLines = 1, overflow = TextOverflow.Ellipsis, modifier = Modifier.clickable {
         function?.invoke()
     })
 }

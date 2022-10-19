@@ -6,11 +6,11 @@ plugins {
 }
 
 android {
-    compileSdk 32
+    compileSdk 33
 
     defaultConfig {
         minSdk 26
-        targetSdk 32
+        targetSdk 33
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles "consumer-rules.pro"
@@ -34,11 +34,11 @@ android {
 dependencies {
 
     // Android
-    implementation 'androidx.core:core-ktx:1.8.0'
-    implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.5.0'
-    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.0"
-    implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.5.0"
-    implementation 'androidx.activity:activity-compose:1.5.0'
+    implementation 'androidx.core:core-ktx:1.9.0'
+    implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.5.1'
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1"
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.5.1"
+    implementation 'androidx.activity:activity-compose:1.6.0'
 
     // Unit Tests
     testImplementation 'junit:junit:4.13.2'
@@ -54,7 +54,7 @@ dependencies {
 
     // Google Sheets
     implementation 'com.google.apis:google-api-services-sheets:v4-rev20210629-1.32.1'
-    implementation 'com.google.android.gms:play-services-auth:20.2.0'
+    implementation 'com.google.android.gms:play-services-auth:20.3.0'
     implementation('com.google.api-client:google-api-client-android:1.35.0')
 
     // Firebase

@@ -14,7 +14,7 @@ class FixedIncomeRepositoryImpl @Inject constructor(
     private val environmentDataSource: EnvironmentDataSource
 ) : SheetsPageRepository<FixedIncome> {
 
-    private val RANGE = "'Renda Fixa'!A2:Z1000"
+    private val RANGE = "'Histórico Renda Fixa'!A2:Z1000"
 
     override fun get() = flow {
         emit(dataSource.get(environmentDataSource.sheetKey, RANGE).toResponse())
@@ -26,13 +26,16 @@ class FixedIncomeRepositoryImpl @Inject constructor(
     /**
      * Mappers
      */
+
+    private val alphabets = ('A'..'Z')
+
     private fun MutableList<MutableList<*>>.toModel(): List<FixedIncome> = this.map {
         FixedIncome(
-            col1 = runCatching { it[0] as String }.getOrNull().orEmpty(),
-            col2 = runCatching { it[1] as String }.getOrNull().orEmpty(),
-            col3 = runCatching { it[2] as String }.getOrNull().orEmpty(),
-            col4 = runCatching { it[3] as String }.getOrNull().orEmpty(),
-            col5 = runCatching { it[4] as String }.getOrNull().orEmpty(),
+            col1 = runCatching { it[alphabets.indexOf('B')] as String }.getOrNull().orEmpty(),
+            col2 = runCatching { it[alphabets.indexOf('C')] as String }.getOrNull().orEmpty(),
+            col3 = runCatching { it[alphabets.indexOf('F')] as String }.getOrNull().orEmpty(),
+            col4 = runCatching { it[alphabets.indexOf('O')] as String }.getOrNull().orEmpty(),
+            col5 = runCatching { it[alphabets.indexOf('W')] as String }.getOrNull().orEmpty(),
         )
     }
 
@@ -41,7 +44,7 @@ class FixedIncomeRepositoryImpl @Inject constructor(
     }
 
     private fun DataSourceResponse.toResponse(): DataSourceResponse = when (this) {
-        is Success<*> -> Success((this.data as MutableList<MutableList<*>>?)?.toModel())
+        is Success<*> -> Success((this.data as MutableList<MutableList<*>>?)?.toModel()?.filter { it.col1 == "2022" && (it.col2 == "10" || it.col2 == "9")})
         is Failure -> Failure(this.e, this.intent)
     }
 }
