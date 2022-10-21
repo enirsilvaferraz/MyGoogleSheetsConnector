@@ -1,6 +1,7 @@
 package com.eferraz.mygooglesheetsconnector.ui.activities
 
 import android.os.Bundle
+import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
 import androidx.compose.foundation.clickable
@@ -17,15 +18,20 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
-import com.eferraz.googlesheets.GoogleSignInActivity
+import com.eferraz.googlesheets.datasources.SheetsException.Companion.resolve
+import com.eferraz.googlesheets.datasources.SheetsResponse
+import com.eferraz.googlesheets.providers.SheetsInstanceProvider
 import com.eferraz.mygooglesheetsconnector.GoogleSheetsViewModel
-import com.eferraz.mygooglesheetsconnector.GoogleSheetsViewModel.UiState.*
 import com.eferraz.mygooglesheetsconnector.entities.FixedIncome
 import com.eferraz.mygooglesheetsconnector.ui.theme.MyGoogleSheetsConnectorTheme
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 @AndroidEntryPoint
-class SampleActivity : GoogleSignInActivity() {
+class SampleActivity : ComponentActivity() {
+
+    @Inject
+    lateinit var provider: SheetsInstanceProvider
 
     private val vm: GoogleSheetsViewModel by viewModels()
 
@@ -37,18 +43,14 @@ class SampleActivity : GoogleSignInActivity() {
             MyGoogleSheetsConnectorTheme {
                 Surface(modifier = Modifier.fillMaxSize(), color = MaterialTheme.colorScheme.background) {
 
-                    when (val state = vm.uiState.collectAsState().value) {
-                        is Loading -> {}
-                        is Success -> Lista(state.data) { }
-                        is Failure -> state.intent?.let { registerThrowableResult.launch(it) }
+                    when (val value = vm.uiState.collectAsState(initial = null).value) {
+                        is SheetsResponse.Success -> Lista(value.result) {}
+                        is SheetsResponse.Failure -> provider.handleError(this, value.result.resolve().intent)
+                        null -> {}
                     }
                 }
             }
         }
-    }
-
-    override fun onSignInReady() {
-        vm.getData()
     }
 }
 

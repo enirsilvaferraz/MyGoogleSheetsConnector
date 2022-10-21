@@ -13,7 +13,7 @@ abstract class SheetsPageRepositoryModule {
 
     @FixedIncomePage
     @Binds
-    abstract fun bindFixedIncomePage(repository: FixedIncomeRepositoryImpl): SheetsPageRepository<FixedIncome>
+    abstract fun bindFixedIncomePage(repository: FixedIncomeRepositoryImpl): SheetsPageRepository<List<FixedIncome>>
 }
 
 @Qualifier

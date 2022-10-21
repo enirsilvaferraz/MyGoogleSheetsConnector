@@ -15,8 +15,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyGoogleSheetsConnector"
         tools:targetApi="31">
+
         <activity
-            android:name=".ui.activities.SampleActivity"
+            android:name=".ui.activities.GoogleSignInActivity"
             android:exported="true"
             android:label="@string/app_name"
             android:theme="@style/Theme.MyGoogleSheetsConnector">
@@ -26,6 +27,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity
+            android:name=".ui.activities.SampleActivity"
+            android:exported="true"
+            android:label="@string/app_name"
+            android:theme="@style/Theme.MyGoogleSheetsConnector"/>
     </application>
 
 </manifest>
