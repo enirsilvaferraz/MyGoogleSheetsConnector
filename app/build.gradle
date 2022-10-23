@@ -74,6 +74,7 @@ kapt {
 dependencies {
 
     implementation project(path: ':googleSheets')
+    implementation project(path: ':domain')
 
     // Android
     implementation 'androidx.core:core-ktx:1.9.0'

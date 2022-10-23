@@ -1,4 +1,4 @@
-package com.eferraz.mygooglesheetsconnector.entities
+package com.eferraz.finance.domain.entities
 
 data class FixedIncome(
     val col1: String,

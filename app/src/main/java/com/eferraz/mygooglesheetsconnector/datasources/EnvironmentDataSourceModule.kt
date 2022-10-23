@@ -1,5 +1,6 @@
 package com.eferraz.mygooglesheetsconnector.datasources
 
+import com.eferraz.finance.domain.datasources.EnvironmentDataSource
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn

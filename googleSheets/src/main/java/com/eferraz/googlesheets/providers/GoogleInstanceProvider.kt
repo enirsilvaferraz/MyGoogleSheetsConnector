@@ -1,7 +1,6 @@
 package com.eferraz.googlesheets.providers
 
 import android.app.Activity
-import android.content.Context
 import android.content.Intent
 import androidx.activity.ComponentActivity
 import androidx.activity.result.ActivityResult
@@ -10,41 +9,18 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
-import com.google.api.client.googleapis.extensions.android.gms.auth.GoogleAccountCredential
-import com.google.api.client.googleapis.javanet.GoogleNetHttpTransport
-import com.google.api.client.http.HttpTransport
-import com.google.api.client.json.JsonFactory
-import com.google.api.client.json.gson.GsonFactory
-import com.google.api.client.util.ExponentialBackOff
-import com.google.api.services.sheets.v4.Sheets
-import com.google.api.services.sheets.v4.SheetsScopes
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
-import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class SheetsInstanceProvider @Inject constructor(@ApplicationContext private val context: Context) {
+class GoogleInstanceProvider @Inject constructor() {
 
     private lateinit var client: GoogleSignInClient
     private lateinit var auth: FirebaseAuth
-
-    fun getSheets(): Sheets {
-
-        val jsonFactory: JsonFactory = GsonFactory.getDefaultInstance()
-        val httpTransport: HttpTransport = GoogleNetHttpTransport.newTrustedTransport()
-
-        val credential = GoogleAccountCredential.usingOAuth2(context, SheetsScopes.all()).setBackOff(ExponentialBackOff()).also {
-            it.selectedAccount = getAccount()
-        }
-
-        return Sheets.Builder(httpTransport, jsonFactory, credential).setApplicationName("Google-SheetsSample/0.1").build()
-    }
-
-    private fun getAccount() = GoogleSignIn.getLastSignedInAccount(context)?.account
 
     fun login(activity: ComponentActivity, onSignInReady: () -> Unit) {
 

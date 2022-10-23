@@ -18,11 +18,12 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
+import com.eferraz.finance.domain.archtecture.DomainResponse
 import com.eferraz.googlesheets.datasources.SheetsException.Companion.resolve
 import com.eferraz.googlesheets.datasources.SheetsResponse
-import com.eferraz.googlesheets.providers.SheetsInstanceProvider
+import com.eferraz.googlesheets.providers.GoogleInstanceProvider
 import com.eferraz.mygooglesheetsconnector.GoogleSheetsViewModel
-import com.eferraz.mygooglesheetsconnector.entities.FixedIncome
+import com.eferraz.finance.domain.entities.FixedIncome
 import com.eferraz.mygooglesheetsconnector.ui.theme.MyGoogleSheetsConnectorTheme
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -31,7 +32,7 @@ import javax.inject.Inject
 class SampleActivity : ComponentActivity() {
 
     @Inject
-    lateinit var provider: SheetsInstanceProvider
+    lateinit var provider: GoogleInstanceProvider
 
     private val vm: GoogleSheetsViewModel by viewModels()
 
@@ -44,8 +45,8 @@ class SampleActivity : ComponentActivity() {
                 Surface(modifier = Modifier.fillMaxSize(), color = MaterialTheme.colorScheme.background) {
 
                     when (val value = vm.uiState.collectAsState(initial = null).value) {
-                        is SheetsResponse.Success -> Lista(value.result) {}
-                        is SheetsResponse.Failure -> provider.handleError(this, value.result.resolve().intent)
+                        is DomainResponse.Success -> Lista(value.result) {}
+                        is DomainResponse.Failure -> provider.handleError(this, value.result.resolve().intent)
                         null -> {}
                     }
                 }

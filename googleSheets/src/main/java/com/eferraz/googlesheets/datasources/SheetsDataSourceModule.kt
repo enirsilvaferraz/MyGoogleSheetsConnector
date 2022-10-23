@@ -10,5 +10,5 @@ import dagger.hilt.android.components.ViewModelComponent
 abstract class SheetsDataSourceModule {
 
     @Binds
-    abstract fun bindDataSource(dataSource: SheetsDataSourceImpl): SheetsDataSource
+    abstract fun bindDataSource(dataSource: SheetsProviderImpl): SheetsProvider
 }

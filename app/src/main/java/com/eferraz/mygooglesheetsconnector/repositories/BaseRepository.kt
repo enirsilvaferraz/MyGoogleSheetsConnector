@@ -1,9 +1,9 @@
 package com.eferraz.mygooglesheetsconnector.repositories
 
-import com.eferraz.googlesheets.datasources.SheetsResponse
+import com.eferraz.finance.domain.archtecture.DomainResponse
 import kotlinx.coroutines.flow.Flow
 
-interface SheetsPageRepository<T> {
-    fun get(): Flow<SheetsResponse<T>>
+interface BaseRepository<T> {
+    fun get(): Flow<DomainResponse<T>>
    // fun append(vararg data: Entity) : DataSourceResponse
 }
