@@ -1,18 +1,16 @@
 package com.eferraz.mygooglesheetsconnector.repositories
 
-import com.eferraz.finance.domain.archtecture.GenericReadableDataSource
+import com.eferraz.finance.domain.archtecture.BaseReadableDataSource
+import com.eferraz.finance.domain.archtecture.BaseRepository
 import com.eferraz.finance.domain.entities.FixedIncome
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.flowOn
 import javax.inject.Inject
 
 class FixedIncomeRepositoryImpl @Inject constructor(
-    private val dataSource: GenericReadableDataSource<List<FixedIncome>>
+    private val dataSource: BaseReadableDataSource<List<FixedIncome>>
 ) : BaseRepository<@JvmSuppressWildcards List<FixedIncome>> {
 
-    override fun get() = flow {
-        emit(dataSource.get())
-    }
-
-    //override fun append(vararg data: FixedIncome) =
-    //    dataSource.append(environmentDataSource.sheetKey, RANGE, data.toList().toRequestBody()).toResponse()
+    override fun get() = flow { emit(dataSource.get()) }.flowOn(Dispatchers.IO)
 }

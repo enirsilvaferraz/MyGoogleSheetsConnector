@@ -1,5 +1,6 @@
 package com.eferraz.mygooglesheetsconnector.repositories
 
+import com.eferraz.finance.domain.archtecture.BaseRepository
 import com.eferraz.finance.domain.entities.FixedIncome
 import dagger.Binds
 import dagger.Module

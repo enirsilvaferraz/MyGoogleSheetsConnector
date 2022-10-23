@@ -1,7 +1,7 @@
 package com.eferraz.mygooglesheetsconnector.datasources
 
 import com.eferraz.finance.domain.archtecture.DomainResponse.Companion.result
-import com.eferraz.finance.domain.archtecture.GenericReadableDataSource
+import com.eferraz.finance.domain.archtecture.BaseReadableDataSource
 import com.eferraz.finance.domain.datasources.EnvironmentDataSource
 import com.eferraz.finance.domain.entities.FixedIncome
 import com.eferraz.googlesheets.data
@@ -12,7 +12,7 @@ import javax.inject.Inject
 class FixedIncomeSheetsDataSourceImpl @Inject constructor(
     private val sheetsProvider: SheetsProvider,
     private val environmentDataSource: EnvironmentDataSource
-) : GenericReadableDataSource<@JvmSuppressWildcards List<FixedIncome>> {
+) : BaseReadableDataSource<@JvmSuppressWildcards List<FixedIncome>> {
 
     private val RANGE: String = "'Histórico Renda Fixa'!A2:Z1000"
 

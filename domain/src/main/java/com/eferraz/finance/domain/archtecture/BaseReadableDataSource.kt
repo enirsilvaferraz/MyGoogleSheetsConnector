@@ -1,5 +1,5 @@
 package com.eferraz.finance.domain.archtecture
 
-interface GenericReadableDataSource<Result> {
+interface BaseReadableDataSource<Result> {
     suspend fun get(): DomainResponse<Result>
 }

@@ -20,21 +20,20 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import com.eferraz.finance.domain.archtecture.DomainResponse
 import com.eferraz.googlesheets.datasources.SheetsException.Companion.resolve
-import com.eferraz.googlesheets.datasources.SheetsResponse
 import com.eferraz.googlesheets.providers.GoogleInstanceProvider
-import com.eferraz.mygooglesheetsconnector.GoogleSheetsViewModel
+import com.eferraz.mygooglesheetsconnector.FixedIncomeListViewModel
 import com.eferraz.finance.domain.entities.FixedIncome
 import com.eferraz.mygooglesheetsconnector.ui.theme.MyGoogleSheetsConnectorTheme
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class SampleActivity : ComponentActivity() {
+class FixedIncomeActivity : ComponentActivity() {
 
     @Inject
     lateinit var provider: GoogleInstanceProvider
 
-    private val vm: GoogleSheetsViewModel by viewModels()
+    private val vm: FixedIncomeListViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

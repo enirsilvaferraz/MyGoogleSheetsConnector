@@ -37,7 +37,7 @@ class GoogleSignInActivity : ComponentActivity() {
         }
 
         provider.login(this) {
-            startActivity(Intent(this, SampleActivity::class.java))
+            startActivity(Intent(this, FixedIncomeActivity::class.java))
             finish()
         }
     }
