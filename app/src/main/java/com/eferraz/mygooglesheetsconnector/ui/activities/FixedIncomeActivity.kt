@@ -18,8 +18,6 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.hilt.work.HiltWorkerFactory
-import androidx.work.Configuration
 import androidx.work.OneTimeWorkRequestBuilder
 import androidx.work.WorkManager
 import com.eferraz.finance.domain.archtecture.DomainResponse
@@ -34,9 +32,6 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class FixedIncomeActivity : ComponentActivity() {
-
-    //@Inject lateinit var workerFactory: HiltWorkerFactory
-
 
     @Inject
     lateinit var provider: GoogleInstanceProvider
@@ -59,9 +54,6 @@ class FixedIncomeActivity : ComponentActivity() {
                 }
             }
         }
-
-        //Configuration.Builder().setWorkerFactory(workerFactory).build()
-        //WorkManager.getInstance(this).enqueue(OneTimeWorkRequestBuilder<SyncGoogleSheetsWorkManager>().build())
 
     }
 }

@@ -16,3 +16,5 @@ rootProject.name = "MyGoogleSheetsConnector"
 include ':app'
 include ':googleSheets'
 include ':domain'
+include ':core:database'
+include ':core:data'

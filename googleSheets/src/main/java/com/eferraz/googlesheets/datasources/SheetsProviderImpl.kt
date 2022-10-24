@@ -13,7 +13,9 @@ import com.google.api.services.sheets.v4.SheetsScopes
 import com.google.api.services.sheets.v4.model.ValueRange
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
+import javax.inject.Singleton
 
+@Singleton
 class SheetsProviderImpl @Inject constructor(@ApplicationContext private val context: Context) : SheetsProvider {
 
     private fun getSheets(): Sheets {

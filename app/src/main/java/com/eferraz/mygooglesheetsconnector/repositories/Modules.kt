@@ -5,12 +5,12 @@ import com.eferraz.finance.domain.entities.FixedIncome
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
-import dagger.hilt.android.components.ViewModelComponent
+import dagger.hilt.components.SingletonComponent
 import javax.inject.Qualifier
 
 @Module
-@InstallIn(ViewModelComponent::class)
-abstract class SheetsPageRepositoryModule {
+@InstallIn(SingletonComponent::class)
+abstract class Modules {
 
     //@FixedIncomePage
     @Binds
