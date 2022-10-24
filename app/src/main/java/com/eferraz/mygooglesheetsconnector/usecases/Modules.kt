@@ -1,6 +1,7 @@
 package com.eferraz.mygooglesheetsconnector.usecases
 
 import com.eferraz.finance.domain.archtecture.BaseUseCase
+import com.eferraz.finance.domain.entities.FixedIncome
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -11,5 +12,5 @@ import dagger.hilt.android.components.ViewModelComponent
 abstract class GetFixedIncomeListUseCaseModule {
 
     @Binds
-    abstract fun bind(bindable: GetFixedIncomeListUseCase): BaseUseCase<*, *>
+    abstract fun bind(bindable: GetFixedIncomeListUseCase): BaseUseCase<Unit, MutableList<FixedIncome>>
 }

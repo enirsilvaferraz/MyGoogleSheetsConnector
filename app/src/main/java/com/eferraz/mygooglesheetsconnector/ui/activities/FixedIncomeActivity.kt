@@ -18,17 +18,25 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.hilt.work.HiltWorkerFactory
+import androidx.work.Configuration
+import androidx.work.OneTimeWorkRequestBuilder
+import androidx.work.WorkManager
 import com.eferraz.finance.domain.archtecture.DomainResponse
+import com.eferraz.finance.domain.entities.FixedIncome
 import com.eferraz.googlesheets.datasources.SheetsException.Companion.resolve
 import com.eferraz.googlesheets.providers.GoogleInstanceProvider
 import com.eferraz.mygooglesheetsconnector.FixedIncomeListViewModel
-import com.eferraz.finance.domain.entities.FixedIncome
+import com.eferraz.mygooglesheetsconnector.SyncGoogleSheetsWorkManager
 import com.eferraz.mygooglesheetsconnector.ui.theme.MyGoogleSheetsConnectorTheme
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
 class FixedIncomeActivity : ComponentActivity() {
+
+    //@Inject lateinit var workerFactory: HiltWorkerFactory
+
 
     @Inject
     lateinit var provider: GoogleInstanceProvider
@@ -51,6 +59,10 @@ class FixedIncomeActivity : ComponentActivity() {
                 }
             }
         }
+
+        //Configuration.Builder().setWorkerFactory(workerFactory).build()
+        //WorkManager.getInstance(this).enqueue(OneTimeWorkRequestBuilder<SyncGoogleSheetsWorkManager>().build())
+
     }
 }
 

@@ -12,9 +12,9 @@ import javax.inject.Qualifier
 @InstallIn(ViewModelComponent::class)
 abstract class SheetsPageRepositoryModule {
 
-    @FixedIncomePage
+    //@FixedIncomePage
     @Binds
-    abstract fun bindFixedIncomePage(repository: FixedIncomeRepositoryImpl): BaseRepository<List<FixedIncome>>
+    abstract fun bind(repository: FixedIncomeRepositoryImpl): BaseRepository<MutableList<FixedIncome>>
 }
 
 @Qualifier

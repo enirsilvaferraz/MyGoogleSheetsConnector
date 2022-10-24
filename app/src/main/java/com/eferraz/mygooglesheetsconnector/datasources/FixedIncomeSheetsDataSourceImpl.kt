@@ -2,6 +2,7 @@ package com.eferraz.mygooglesheetsconnector.datasources
 
 import com.eferraz.finance.domain.archtecture.DomainResponse.Companion.result
 import com.eferraz.finance.domain.archtecture.BaseReadableDataSource
+import com.eferraz.finance.domain.archtecture.DomainResponse
 import com.eferraz.finance.domain.datasources.EnvironmentDataSource
 import com.eferraz.finance.domain.entities.FixedIncome
 import com.eferraz.googlesheets.data
@@ -12,18 +13,18 @@ import javax.inject.Inject
 class FixedIncomeSheetsDataSourceImpl @Inject constructor(
     private val sheetsProvider: SheetsProvider,
     private val environmentDataSource: EnvironmentDataSource
-) : BaseReadableDataSource<@JvmSuppressWildcards List<FixedIncome>> {
+) : BaseReadableDataSource<MutableList<FixedIncome>> {
 
     private val RANGE: String = "'Histórico Renda Fixa'!A2:Z1000"
 
-    override suspend fun get() = result {
+    override suspend fun get()= result {
         when (val response = sheetsProvider.get(environmentDataSource.sheetKey, RANGE)) {
             is SheetsResponse.Failure -> throw response.result
             is SheetsResponse.Success -> response.result.toResult()
         }
     }
 
-    private fun List<List<Any>>.toResult(): List<FixedIncome> = this.map {
+    private fun List<List<Any>>.toResult(): MutableList<FixedIncome> = this.map {
         FixedIncome(
             col1 = runCatching { it.data('B') }.getOrNull().orEmpty(),
             col2 = runCatching { it.data('C') }.getOrNull().orEmpty(),
@@ -31,7 +32,7 @@ class FixedIncomeSheetsDataSourceImpl @Inject constructor(
             col4 = runCatching { it.data('O') }.getOrNull().orEmpty(),
             col5 = runCatching { it.data('W') }.getOrNull().orEmpty(),
         )
-    }
+    }.toMutableList()
 }
 
 
