@@ -1,9 +1,7 @@
 package com.eferraz.mygooglesheetsconnector
 
 import androidx.lifecycle.ViewModel
-import com.eferraz.finance.domain.archtecture.BaseUseCase
-import com.eferraz.finance.domain.entities.FixedIncome
-import com.eferraz.mygooglesheetsconnector.usecases.GetFixedIncomeListUseCase
+import com.eferraz.mygooglesheetsconnector.core.domain.usecases.GetFixedIncomeListUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 

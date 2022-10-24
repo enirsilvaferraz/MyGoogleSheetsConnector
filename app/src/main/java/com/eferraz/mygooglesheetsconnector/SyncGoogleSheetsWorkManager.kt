@@ -5,7 +5,7 @@ import android.util.Log
 import androidx.hilt.work.HiltWorker
 import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
-import com.eferraz.mygooglesheetsconnector.usecases.SynchronizeDataBaseUseCase
+import com.eferraz.mygooglesheetsconnector.core.domain.usecases.SynchronizeDataBaseUseCase
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedInject
 import kotlinx.coroutines.Dispatchers
