@@ -21,7 +21,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.eferraz.mygooglesheetsconnector.core.domain.archtecture.DomainResponse
 import com.eferraz.mygooglesheetsconnector.core.domain.entities.FixedIncome
 import com.eferraz.googlesheets.datasources.SheetsException.Companion.resolve
-import com.eferraz.googlesheets.providers.GoogleInstanceProvider
+import com.eferraz.googlesheets.providers.GoogleInstanceProviderImpl
 import com.eferraz.mygooglesheetsconnector.FixedIncomeListViewModel
 import com.eferraz.mygooglesheetsconnector.ui.theme.MyGoogleSheetsConnectorTheme
 import dagger.hilt.android.AndroidEntryPoint
@@ -31,7 +31,7 @@ import javax.inject.Inject
 class FixedIncomeActivity : ComponentActivity() {
 
     @Inject
-    lateinit var provider: GoogleInstanceProvider
+    lateinit var provider: GoogleInstanceProviderImpl
 
     private val vm: FixedIncomeListViewModel by viewModels()
 
