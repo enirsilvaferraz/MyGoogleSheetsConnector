@@ -1,4 +1,6 @@
-package com.eferraz.googlesheets.datasources
+package com.eferraz.googlesheets.providers
+
+import com.eferraz.googlesheets.data.SheetsResponse
 
 interface SheetsProvider{
     //fun append(sheetID: String, range: String?, values: MutableList<MutableList<*>>): DataSourceResponse<List<List<Any>>>

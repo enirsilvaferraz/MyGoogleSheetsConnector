@@ -18,11 +18,11 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
-import com.eferraz.mygooglesheetsconnector.archtecture.DomainResponse
-import com.eferraz.mygooglesheetsconnector.core.model.FixedIncome
-import com.eferraz.googlesheets.datasources.SheetsException.Companion.resolve
+import com.eferraz.googlesheets.data.SheetsException.Companion.resolve
 import com.eferraz.googlesheets.providers.GoogleInstanceProviderImpl
+import com.eferraz.mygooglesheetsconnector.archtecture.DomainResponse
 import com.eferraz.mygooglesheetsconnector.core.designsystem.theme.MyGoogleSheetsConnectorTheme
+import com.eferraz.mygooglesheetsconnector.core.model.FixedIncome
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -59,10 +59,10 @@ fun Lista(data: List<FixedIncome>, function: (() -> Unit)? = null) {
     LazyColumn {
         items(data) { dataItem ->
             Row {
-                Column(Modifier.weight(.1f)) { Greeting(dataItem.col1, function) }
-                Column(Modifier.weight(.05f)) { Greeting(dataItem.col2, function) }
-                Column(Modifier.weight(.55f)) { Greeting(dataItem.col3, function) }
-                Column(Modifier.weight(.2f)) { Greeting(dataItem.col4, function) }
+                Column(Modifier.weight(.1f)) { Greeting(dataItem.year, function) }
+                Column(Modifier.weight(.05f)) { Greeting(dataItem.month, function) }
+                Column(Modifier.weight(.55f)) { Greeting(dataItem.name, function) }
+                Column(Modifier.weight(.2f)) { Greeting(dataItem.investment, function) }
                 //Column(Modifier.weight(.2f)) { Greeting(dataItem.col5, function) }
             }
         }

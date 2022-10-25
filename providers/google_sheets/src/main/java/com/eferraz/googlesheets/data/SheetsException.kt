@@ -1,4 +1,4 @@
-package com.eferraz.googlesheets.datasources
+package com.eferraz.googlesheets.data
 
 import android.content.Intent
 import com.google.android.gms.auth.UserRecoverableAuthException

@@ -12,7 +12,7 @@ sealed class DomainResponse<out R> {
 
     companion object {
 
-        fun <T : Any> result(function: () -> T): DomainResponse<T> = try {
+        suspend fun <T : Any> result(function: suspend () -> T): DomainResponse<T> = try {
             Success(function())
         } catch (e: Exception) {
             Failure(e)

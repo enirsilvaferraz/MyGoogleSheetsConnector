@@ -3,6 +3,6 @@ package com.eferraz.mygooglesheetsconnector.core.data
 import com.eferraz.mygooglesheetsconnector.archtecture.DomainResponse
 import kotlinx.coroutines.flow.Flow
 
-interface BaseRepository<T> {
-    fun get(): Flow<DomainResponse<T>>
+interface BaseRepository<Params, Result> {
+    fun get(params :Params): Flow<DomainResponse<Result>>
 }

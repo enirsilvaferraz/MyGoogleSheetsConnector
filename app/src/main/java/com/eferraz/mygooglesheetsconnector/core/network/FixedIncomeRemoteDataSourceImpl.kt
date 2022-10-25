@@ -1,13 +1,13 @@
 package com.eferraz.mygooglesheetsconnector.core.network
 
-import com.eferraz.googlesheets.data
-import com.eferraz.googlesheets.datasources.SheetsProvider
-import com.eferraz.googlesheets.datasources.SheetsResponse
+import com.eferraz.googlesheets.data.SheetsResponse
+import com.eferraz.googlesheets.data.data
+import com.eferraz.googlesheets.providers.SheetsProvider
 import com.eferraz.mygooglesheetsconnector.archtecture.DomainResponse.Companion.result
 import com.eferraz.mygooglesheetsconnector.core.model.FixedIncome
 import javax.inject.Inject
 
-class FixedIncomeSheetsDataSourceImpl @Inject constructor(
+class FixedIncomeRemoteDataSourceImpl @Inject constructor(
     private val sheetsProvider: SheetsProvider, private val environmentDataSource: EnvironmentDataSource
 ) : BaseReadableDataSource<MutableList<FixedIncome>> {
 
@@ -22,11 +22,11 @@ class FixedIncomeSheetsDataSourceImpl @Inject constructor(
 
     private fun List<List<Any>>.toResult(): MutableList<FixedIncome> = this.map {
         FixedIncome(
-            col1 = runCatching { it.data('B') }.getOrNull().orEmpty(),
-            col2 = runCatching { it.data('C') }.getOrNull().orEmpty(),
-            col3 = runCatching { it.data('F') }.getOrNull().orEmpty(),
-            col4 = runCatching { it.data('O') }.getOrNull().orEmpty(),
-            col5 = runCatching { it.data('W') }.getOrNull().orEmpty(),
+            name = it.data('F'),
+            year = it.data('B'),
+            month = it.data('C'),
+            investment = it.data('N'),
+            amount = it.data('O'),
         )
     }.toMutableList()
 }

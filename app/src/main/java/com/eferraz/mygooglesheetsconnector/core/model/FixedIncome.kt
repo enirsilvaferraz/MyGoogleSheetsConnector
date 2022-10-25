@@ -1,9 +1,13 @@
 package com.eferraz.mygooglesheetsconnector.core.model
 
+import androidx.room.ColumnInfo
+import androidx.room.Entity
+
+@Entity(primaryKeys = ["year", "month", "name"])
 data class FixedIncome(
-    val col1: String,
-    val col2: String,
-    val col3: String,
-    val col4: String,
-    val col5: String,
+    @ColumnInfo(name = "year") val year: String,
+    @ColumnInfo(name = "month") val month: String,
+    @ColumnInfo(name = "name") val name: String,
+    @ColumnInfo(name = "investment") val investment: String,
+    @ColumnInfo(name = "amount") val amount: String
 )

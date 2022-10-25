@@ -13,7 +13,7 @@ abstract class Modules {
 
     //@FixedIncomePage
     @Binds
-    abstract fun bind(repository: FixedIncomeRepositoryImpl): BaseRepository<MutableList<FixedIncome>>
+    abstract fun bind(repository: FixedIncomeRepositoryImpl): BaseRepository<FixedIncomeRepositoryImpl.Params, MutableList<FixedIncome>>
 }
 
 @Qualifier

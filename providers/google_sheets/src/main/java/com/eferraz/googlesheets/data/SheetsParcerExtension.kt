@@ -1,4 +1,4 @@
-package com.eferraz.googlesheets
+package com.eferraz.googlesheets.data
 
 private val alphabets = ('A'..'Z')
 

@@ -1,6 +1,6 @@
-package com.eferraz.googlesheets.datasources
+package com.eferraz.googlesheets.data
 
-import com.eferraz.googlesheets.datasources.SheetsException.Companion.resolve
+import com.eferraz.googlesheets.data.SheetsException.Companion.resolve
 
 sealed class SheetsResponse<out R> {
 

@@ -1,6 +1,5 @@
 package com.eferraz.mygooglesheetsconnector.core.network
 
-import com.eferraz.mygooglesheetsconnector.core.network.EnvironmentDataSource
 import com.eferraz.mygooglesheetsconnector.BuildConfig
 import javax.inject.Inject
 

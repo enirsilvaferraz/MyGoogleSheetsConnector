@@ -1,5 +1,7 @@
-package com.eferraz.googlesheets.datasources
+package com.eferraz.googlesheets
 
+import com.eferraz.googlesheets.providers.SheetsProvider
+import com.eferraz.googlesheets.providers.SheetsProviderImpl
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn

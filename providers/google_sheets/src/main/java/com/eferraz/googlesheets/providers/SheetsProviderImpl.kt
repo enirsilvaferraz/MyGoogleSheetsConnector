@@ -1,6 +1,7 @@
-package com.eferraz.googlesheets.datasources
+package com.eferraz.googlesheets.providers
 
 import android.content.Context
+import com.eferraz.googlesheets.data.SheetsResponse
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.api.client.googleapis.extensions.android.gms.auth.GoogleAccountCredential
 import com.google.api.client.googleapis.javanet.GoogleNetHttpTransport
