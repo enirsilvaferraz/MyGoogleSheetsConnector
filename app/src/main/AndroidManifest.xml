@@ -5,7 +5,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
-        android:name=".AppApplication"
+        android:name=".app.AppApplication"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -17,7 +17,7 @@
         tools:targetApi="31">
 
         <activity
-            android:name=".ui.activities.GoogleSignInActivity"
+            android:name=".feature.login.GoogleSignInActivity"
             android:exported="true"
             android:label="@string/app_name"
             android:theme="@style/Theme.MyGoogleSheetsConnector">
@@ -29,10 +29,10 @@
         </activity>
 
         <activity
-            android:name=".ui.activities.FixedIncomeActivity"
+            android:name=".feature.home.FixedIncomeActivity"
             android:exported="true"
             android:label="@string/app_name"
-            android:theme="@style/Theme.MyGoogleSheetsConnector"/>
+            android:theme="@style/Theme.MyGoogleSheetsConnector" />
     </application>
 
 </manifest>
