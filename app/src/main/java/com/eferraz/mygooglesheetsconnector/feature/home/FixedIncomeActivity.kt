@@ -15,12 +15,12 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import com.eferraz.googlesheets.data.SheetsException.Companion.resolve
 import com.eferraz.googlesheets.providers.GoogleInstanceProviderImpl
-import com.eferraz.mygooglesheetsconnector.archtecture.DomainResponse
 import com.eferraz.mygooglesheetsconnector.core.designsystem.theme.MyGoogleSheetsConnectorTheme
 import com.eferraz.mygooglesheetsconnector.core.model.FixedIncome
 import dagger.hilt.android.AndroidEntryPoint
@@ -42,10 +42,16 @@ class FixedIncomeActivity : ComponentActivity() {
             MyGoogleSheetsConnectorTheme {
                 Surface(modifier = Modifier.fillMaxSize(), color = MaterialTheme.colorScheme.background) {
 
-                    when (val value = vm.uiState.collectAsState(initial = null).value) {
-                        is DomainResponse.Success -> Lista(value.result) {}
-                        is DomainResponse.Failure -> provider.handleError(this, value.result.resolve().intent)
-                        null -> {}
+                    runCatching {
+
+                        val value by vm.uiState.collectAsState(initial = null)
+
+                        value?.let {
+                            Lista(it) {}
+                        }
+
+                    }.getOrElse {
+                        provider.handleError(this, it.resolve().intent)
                     }
                 }
             }
@@ -55,7 +61,7 @@ class FixedIncomeActivity : ComponentActivity() {
 }
 
 @Composable
-fun Lista(data: List<FixedIncome>, function: (() -> Unit)? = null) {
+fun Lista(data: MutableList<FixedIncome>, function: (() -> Unit)? = null) {
     LazyColumn {
         items(data) { dataItem ->
             Row {

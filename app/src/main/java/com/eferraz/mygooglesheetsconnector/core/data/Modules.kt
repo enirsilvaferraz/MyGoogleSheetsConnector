@@ -1,6 +1,7 @@
 package com.eferraz.mygooglesheetsconnector.core.data
 
 import com.eferraz.mygooglesheetsconnector.core.model.FixedIncome
+import com.eferraz.mygooglesheetsconnector.core.repository.BaseRepository
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn

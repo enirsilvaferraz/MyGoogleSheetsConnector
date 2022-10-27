@@ -1,7 +1,7 @@
 package com.eferraz.googlesheets.providers
 
 import android.content.Context
-import com.eferraz.googlesheets.data.SheetsResponse
+import com.eferraz.googlesheets.data.SheetsException.Companion.resolve
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.api.client.googleapis.extensions.android.gms.auth.GoogleAccountCredential
 import com.google.api.client.googleapis.javanet.GoogleNetHttpTransport
@@ -53,12 +53,15 @@ class SheetsProviderImpl @Inject constructor(@ApplicationContext private val con
 
  */
 
-    override fun get(sheetID: String, range: String) = SheetsResponse.result {
+    override fun get(sheetID: String, range: String): MutableList<MutableList<Any>> = runCatching {
 
         val request = getSheets().spreadsheets().values().get(sheetID, range)
         val response: ValueRange = request.execute()
 
         response.getValues()
+
+    }.getOrElse {
+        throw it.resolve()
     }
 
     private enum class ValueInputOption {
