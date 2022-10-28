@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -36,40 +37,42 @@ class FixedIncomeActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         setContent {
-
             MyGoogleSheetsConnectorTheme {
                 Surface(modifier = Modifier.fillMaxSize(), color = MaterialTheme.colorScheme.background) {
-
-                    runCatching {
-
-                        val value by vm.uiState.collectAsState(initial = null)
-
-                        value?.let {
-                            Lista(it) {}
-                        }
-
-                    }.getOrElse {
-                        provider.handleError(this, it.resolve().intent)
+                    RunSafe {
+                        val value by vm.uiState.collectAsState(initial = mutableMapOf())
+                        Lista(value) {}
                     }
                 }
             }
         }
 
+        lifecycle.addObserver(vm)
+    }
+
+    @Composable
+    private fun RunSafe(function: @Composable () -> Unit): Unit = runCatching {
+        function()
+    }.getOrElse {
+        provider.handleError(this, it.resolve().intent)
     }
 }
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun Lista(data: MutableList<FixedIncome>, function: (() -> Unit)? = null) {
+fun Lista(data: Map<String, List<FixedIncome>>, function: (() -> Unit)? = null) {
     LazyColumn {
-        items(data) { dataItem ->
-            Row {
-                Column(Modifier.weight(.1f)) { Greeting(dataItem.year, function) }
-                Column(Modifier.weight(.05f)) { Greeting(dataItem.month, function) }
-                Column(Modifier.weight(.55f)) { Greeting(dataItem.name, function) }
-                Column(Modifier.weight(.2f)) { Greeting(dataItem.investment, function) }
-                //Column(Modifier.weight(.2f)) { Greeting(dataItem.col5, function) }
+        data.forEach { (section, listItem) ->
+            stickyHeader {
+                Greeting(name = section)
+            }
+            items(items = listItem) { dataItem ->
+                Row {
+                    Column(Modifier.weight(.50f)) { Greeting(dataItem.name, function) }
+                    Column(Modifier.weight(.25f)) { Greeting(dataItem.investment, function) }
+                    Column(Modifier.weight(.25f)) { Greeting(dataItem.amount, function) }
+                }
             }
         }
     }
