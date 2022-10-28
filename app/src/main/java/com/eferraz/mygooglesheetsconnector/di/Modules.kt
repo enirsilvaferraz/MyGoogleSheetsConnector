@@ -55,7 +55,7 @@ object DataSourceModules {
         @Named(SHEETS_FIXED_INCOME_RANGE) range: String,
         sheetsProvider: SheetsProvider,
         parcelableModel: ParcelableModel<FixedIncome>
-    ): BaseReadableDataSource<FixedIncome> = GenericRemoteDataSourceImpl(sheetsKey, range, sheetsProvider, parcelableModel)
+    ): BaseReadableDataSource<FixedIncome> = GenericReadableRemoteDataSourceImpl(sheetsKey, range, sheetsProvider, parcelableModel)
 
     @LocalDataSource
     @Provides

@@ -10,7 +10,7 @@ class GenericReadableRepositoryImpl<Result> @Inject constructor(
     @LocalDataSource private val localDatasource: BaseReadableDataSource<Result>
 ) : BaseReadableRepository<GenericReadableRepositoryImpl.Params, MutableList<Result>> {
 
-    override suspend fun get(params: Params) =
+    override fun get(params: Params) =
         if (params.forceRemote) remoteDatasource.get()
         else localDatasource.get()
 

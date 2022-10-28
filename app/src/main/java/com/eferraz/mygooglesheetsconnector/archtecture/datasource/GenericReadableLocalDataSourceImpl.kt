@@ -5,5 +5,5 @@ import javax.inject.Inject
 
 class GenericReadableLocalDataSourceImpl<Result> @Inject constructor(private val dao: GenericDao<Result>) : BaseReadableDataSource<Result> {
 
-    override suspend fun get() = dao.get()
+    override fun get() = dao.get()
 }
