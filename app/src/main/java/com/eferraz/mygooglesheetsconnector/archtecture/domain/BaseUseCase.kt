@@ -1,4 +1,4 @@
-package com.eferraz.mygooglesheetsconnector.core.domain
+package com.eferraz.mygooglesheetsconnector.archtecture.domain
 
 import kotlinx.coroutines.flow.Flow
 

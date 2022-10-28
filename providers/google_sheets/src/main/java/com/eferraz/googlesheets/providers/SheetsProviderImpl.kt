@@ -58,7 +58,7 @@ class SheetsProviderImpl @Inject constructor(@ApplicationContext private val con
         val request = getSheets().spreadsheets().values().get(sheetID, range)
         val response: ValueRange = request.execute()
 
-        response.getValues()
+        response.getValues().filter { it.isNotEmpty() }.toMutableList()
 
     }.getOrElse {
         throw it.resolve()

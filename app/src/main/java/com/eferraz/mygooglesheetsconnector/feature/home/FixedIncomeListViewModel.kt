@@ -7,7 +7,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class FixedIncomeListViewModel @Inject constructor(
-    private val getFixedIncomeListUseCase: GetFixedIncomeListUseCase
+    getFixedIncomeListUseCase: GetFixedIncomeListUseCase
 ) : ViewModel() {
     val uiState = getFixedIncomeListUseCase(Unit)
 }

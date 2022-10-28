@@ -1,15 +1,15 @@
 package com.eferraz.mygooglesheetsconnector.core.domain
 
-import com.eferraz.mygooglesheetsconnector.core.data.FixedIncomeRepositoryImpl
+import com.eferraz.mygooglesheetsconnector.archtecture.domain.BaseUseCase
+import com.eferraz.mygooglesheetsconnector.archtecture.repository.BaseReadableRepository
+import com.eferraz.mygooglesheetsconnector.archtecture.repository.GenericReadableRepositoryImpl
 import com.eferraz.mygooglesheetsconnector.core.model.FixedIncome
-import com.eferraz.mygooglesheetsconnector.core.repository.BaseRepository
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 class GetFixedIncomeListUseCase @Inject constructor(
-    private val repository: BaseRepository<FixedIncomeRepositoryImpl.Params, MutableList<FixedIncome>>
+    private val repository: BaseReadableRepository<GenericReadableRepositoryImpl.Params, MutableList<FixedIncome>>
 ) : BaseUseCase<Unit, MutableList<FixedIncome>>() {
 
-    override fun invoke(params: Unit): Flow<MutableList<FixedIncome>> =
-        repository.get(FixedIncomeRepositoryImpl.Params(forceRemote = true))
+    override fun invoke(params: Unit): Flow<MutableList<FixedIncome>> = repository.get(GenericReadableRepositoryImpl.Params(forceRemote = true))
 }
