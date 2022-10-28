@@ -10,29 +10,21 @@ import dagger.assisted.Assisted
 import dagger.assisted.AssistedInject
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import javax.inject.Inject
 
 @HiltWorker
 class SyncGoogleSheetsWorkManager @AssistedInject constructor(
-    @Assisted appContext: Context, @Assisted workerParams: WorkerParameters
+    @Assisted appContext: Context, @Assisted workerParams: WorkerParameters, var synchronize: SynchronizeDataBaseUseCase
 ) : CoroutineWorker(appContext, workerParams) {
 
-    @Inject
-    lateinit var synchronize: SynchronizeDataBaseUseCase
-
-    override suspend fun doWork(): Result {
-        return withContext(Dispatchers.IO) {
-
-            Log.d("ENIR", "Iniciou")
-
-            // val flow: Flow<DomainResponse<List<FixedIncome>>> = getFixedIncomeListUseCase(Unit)
-
-            //  flow.collect {
-            //     Log.d("ENIR", "Resultado -> ${it.getOrNull()?.size}")
-            //   }
-
-            Log.d("ENIR", "Finalizou")
+    override suspend fun doWork(): Result = withContext(Dispatchers.IO) {
+        try {
+            Log.d("ENIR", "Sincronização Iniciada!")
+            synchronize(Unit)
+            Log.d("ENIR", "Sincronização Finalizada com Sucesso!")
             Result.success()
+        } catch (e: Exception) {
+            Log.d("ENIR", "Sincronização Finalizada com Falha! ${e.message}")
+            Result.failure()
         }
     }
 }

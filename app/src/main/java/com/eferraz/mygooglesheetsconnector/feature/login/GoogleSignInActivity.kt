@@ -14,9 +14,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.work.OneTimeWorkRequestBuilder
+import androidx.work.WorkManager
 import com.eferraz.googlesheets.providers.GoogleInstanceProviderImpl
 import com.eferraz.mygooglesheetsconnector.core.designsystem.theme.MyGoogleSheetsConnectorTheme
 import com.eferraz.mygooglesheetsconnector.feature.home.FixedIncomeActivity
+import com.eferraz.mygooglesheetsconnector.feature.sync.SyncGoogleSheetsWorkManager
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -38,9 +41,14 @@ class GoogleSignInActivity : ComponentActivity() {
         }
 
         provider.login(this) {
+            startWorkManager()
             startActivity(Intent(this, FixedIncomeActivity::class.java))
             finish()
         }
+    }
+
+    private fun startWorkManager() {
+        WorkManager.getInstance(this).enqueue(OneTimeWorkRequestBuilder<SyncGoogleSheetsWorkManager>().build())
     }
 }
 

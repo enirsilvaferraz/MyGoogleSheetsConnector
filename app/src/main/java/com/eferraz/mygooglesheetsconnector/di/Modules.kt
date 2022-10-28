@@ -59,7 +59,7 @@ object DataSourceModules {
 
     @LocalDataSource
     @Provides
-    fun provideReadableLocalDataSource(dao: GenericDao<FixedIncome>): BaseReadableDataSource<FixedIncome> = GenericLocalDataSourceImpl(dao)
+    fun provideReadableLocalDataSource(dao: GenericDao<FixedIncome>): BaseReadableDataSource<FixedIncome> = GenericReadableLocalDataSourceImpl(dao)
 
     @LocalDataSource
     @Provides
