@@ -91,7 +91,7 @@ android {
     }
 
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.1.1"
+        kotlinCompilerExtensionVersion = "1.3.2"
     }
 
     packagingOptions {
@@ -116,7 +116,7 @@ android {
 kapt {
     correctErrorTypes = true
     arguments {
-        arg("room.schemaLocation", "$projectDir/schemas".toString())
+        arg("room.schemaLocation", "$projectDir/schemas")
         arg("room.incremental", "true")
         arg("room.expandProjection", "true")
     }
@@ -138,15 +138,21 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.5.1")
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1")
     implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.5.1")
-    implementation("androidx.activity:activity-compose:1.6.0")
 
     // Compose
-    implementation("androidx.compose.ui:ui:1.2.1")
-    implementation("androidx.compose.ui:ui-tooling-preview:1.2.1")
-    implementation("androidx.compose.material3:material3:1.0.0-rc01")
-    debugImplementation("androidx.compose.ui:ui-tooling:1.2.1")
-    debugImplementation("androidx.compose.ui:ui-test-manifest:1.2.1")
-    androidTestImplementation("androidx.compose.ui:ui-test-junit4:1.2.1")
+    implementation(platform("androidx.compose:compose-bom:2022.11.00"))
+    implementation("androidx.compose.material3:material3")
+    implementation("androidx.compose.material:material-icons-core") // Icons
+    implementation("androidx.compose.material:material-icons-extended") // Optional - Add full set of material icons
+    implementation("androidx.compose.material3:material3-window-size-class") // Optional - Add window size utils
+    implementation("androidx.compose.ui:ui-tooling-preview") // Android Studio Preview support
+    debugImplementation("androidx.compose.ui:ui-tooling") // Android Studio Preview support
+    debugImplementation("androidx.compose.ui:ui-test-manifest") // UI Tests
+    androidTestImplementation("androidx.compose.ui:ui-test-junit4") // UI Tests
+
+    implementation("androidx.activity:activity-compose:1.6.1") // Optional - Integration with activities
+    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.5.1") // Optional - Integration with ViewModels
+    implementation("androidx.navigation:navigation-compose:2.5.3") // Nav
 
     // Unit Tests
     testImplementation("junit:junit:4.13.2")
@@ -160,12 +166,6 @@ dependencies {
     // For local unit tests
     testImplementation("com.google.dagger:hilt-android-testing:2.42")
     kaptTest("com.google.dagger:hilt-compiler:2.42")
-
-    // Instrumented Tests
-    androidTestImplementation("androidx.test.ext:junit:1.1.4")
-
-    // Nav
-    implementation("androidx.navigation:navigation-compose:2.5.2")
 
     // WorkManager
     implementation("androidx.work:work-runtime-ktx:2.7.1")
