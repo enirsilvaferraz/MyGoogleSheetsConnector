@@ -29,7 +29,7 @@
         </activity>
 
         <activity
-            android:name=".feature.home.FixedIncomeActivity"
+            android:name=".feature.home.MainActivity"
             android:exported="true"
             android:label="@string/app_name"
             android:theme="@style/Theme.MyGoogleSheetsConnector" />

@@ -8,18 +8,16 @@ import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
+import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.eferraz.googlesheets.data.SheetsException.Companion.resolve
 import com.eferraz.googlesheets.providers.GoogleInstanceProviderImpl
 import com.eferraz.mygooglesheetsconnector.core.designsystem.theme.MyGoogleSheetsConnectorTheme
@@ -27,28 +25,37 @@ import com.eferraz.mygooglesheetsconnector.core.model.FixedIncome
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
+import androidx.compose.runtime.*
+import androidx.compose.ui.platform.*
+import androidx.lifecycle.*
+
+@Composable
+fun LifecycleAwareObserver(observer: LifecycleObserver) {
+
+    val lifecycleOwner = LocalLifecycleOwner.current
+
+    DisposableEffect(observer, lifecycleOwner) {
+
+        lifecycleOwner.lifecycle.addObserver(observer)
+
+        onDispose {
+            lifecycleOwner.lifecycle.removeObserver(observer)
+        }
+    }
+}
+
+
 @AndroidEntryPoint
-class FixedIncomeActivity : ComponentActivity() {
+class MainActivity : ComponentActivity() {
 
     @Inject
     lateinit var provider: GoogleInstanceProviderImpl
 
-    private val vm: FixedIncomeListViewModel by viewModels()
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            MyGoogleSheetsConnectorTheme {
-                Surface(modifier = Modifier.fillMaxSize(), color = MaterialTheme.colorScheme.background) {
-                    RunSafe {
-                        val value by vm.uiState.collectAsState(initial = mutableMapOf())
-                        Lista(value) {}
-                    }
-                }
-            }
+            FixedIncomeRoute()
         }
-
-        lifecycle.addObserver(vm)
     }
 
     @Composable
@@ -56,6 +63,21 @@ class FixedIncomeActivity : ComponentActivity() {
         function()
     }.getOrElse {
         provider.handleError(this, it.resolve().intent)
+    }
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun FixedIncomeRoute(vm: FixedIncomeListViewModel = viewModel()) {
+
+    LifecycleAwareObserver(observer = vm)
+
+    val data by vm.uiState.collectAsState(initial = mutableMapOf())
+
+    MyGoogleSheetsConnectorTheme {
+        Scaffold {_ ->
+            Lista(data = data)
+        }
     }
 }
 
