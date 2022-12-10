@@ -22,6 +22,14 @@
           }
         },
         {
+          "client_id": "79603694721-ib33f1et49akbi6humja4t3mtkrpqh5o.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.eferraz.mygooglesheetsconnector",
+            "certificate_hash": "d491297929a3fc065948a747833f6dada93056b5"
+          }
+        },
+        {
           "client_id": "79603694721-c9ibue26n9cvg8rp9rg5dsophgam00g0.apps.googleusercontent.com",
           "client_type": 3
         }

@@ -9,6 +9,7 @@ import com.eferraz.mygooglesheetsconnector.core.domain.SynchronizeDataBaseUseCas
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedInject
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.withContext
 
 @HiltWorker
@@ -19,7 +20,7 @@ class SyncGoogleSheetsWorkManager @AssistedInject constructor(
     override suspend fun doWork(): Result = withContext(Dispatchers.IO) {
         try {
             Log.d("ENIR", "Sincronização Iniciada!")
-            synchronize(Unit)
+            synchronize(Unit).collect()
             Log.d("ENIR", "Sincronização Finalizada com Sucesso!")
             Result.success()
         } catch (e: Exception) {

@@ -11,5 +11,5 @@ class GetFixedIncomeListUseCase @Inject constructor(
     private val repository: BaseReadableRepository<GenericReadableRepositoryImpl.Params, MutableList<FixedIncome>>
 ) : BaseUseCase<Unit, Flow<MutableList<FixedIncome>>>() {
 
-    override suspend fun invoke(params: Unit) = repository.get(GenericReadableRepositoryImpl.Params(forceRemote = false))
+    override fun invoke(params: Unit) = repository.get(GenericReadableRepositoryImpl.Params(forceRemote = false))
 }

@@ -6,6 +6,9 @@ import com.eferraz.mygooglesheetsconnector.core.model.FixedIncome
 import javax.inject.Inject
 
 class FixedIncomeParcelable @Inject constructor() : ParcelableModel<FixedIncome> {
+
+    override fun getRange(): String = "'Histórico Renda Fixa'!A2:Z1000"
+
     override fun invoke(data: List<Any>): FixedIncome = FixedIncome(
         name = data.data('F'),
         year = data.data('B'),

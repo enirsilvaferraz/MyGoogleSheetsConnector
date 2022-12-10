@@ -17,8 +17,7 @@ plugins {
  * build options.
  */
 
-@Suppress("UnstableApiUsage")
-android {
+@Suppress("UnstableApiUsage") android {
 
     /**
      * The app's namespace. Used primarily to access app resources.
@@ -75,14 +74,14 @@ android {
          */
 
         getByName("debug") {
-            buildConfigField ("String", "SHEET_KEY", "\"1ox8gMA-sD-TYEVuyZM_hODoZKfJqIRi_cZdEHNL_S8c\"")
+            buildConfigField("String", "SHEET_KEY", "\"1ox8gMA-sD-TYEVuyZM_hODoZKfJqIRi_cZdEHNL_S8c\"")
         }
 
         getByName("release") {
             isMinifyEnabled = true // Enables code shrinking for the release build type.
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
 
-            buildConfigField ("String", "SHEET_KEY", "\"1qC_sOAMcOHNNZpKDt4Qh-OETSpQ8GUHrLr5Op5f5Vbw\"")
+            buildConfigField("String", "SHEET_KEY", "\"1qC_sOAMcOHNNZpKDt4Qh-OETSpQ8GUHrLr5Op5f5Vbw\"")
         }
     }
 
@@ -138,6 +137,7 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.5.1")
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1")
     implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.5.1")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.5.1") // Optional - Integration with ViewModels
 
     // Compose
     implementation(platform("androidx.compose:compose-bom:2022.11.00"))
@@ -146,24 +146,21 @@ dependencies {
     implementation("androidx.compose.material:material-icons-extended") // Optional - Add full set of material icons
     implementation("androidx.compose.material3:material3-window-size-class") // Optional - Add window size utils
     implementation("androidx.compose.ui:ui-tooling-preview") // Android Studio Preview support
+    implementation("androidx.activity:activity-compose:1.6.1") // Optional - Integration with activities
+    implementation("androidx.navigation:navigation-compose:2.5.3") // Nav
     debugImplementation("androidx.compose.ui:ui-tooling") // Android Studio Preview support
     debugImplementation("androidx.compose.ui:ui-test-manifest") // UI Tests
-    androidTestImplementation("androidx.compose.ui:ui-test-junit4") // UI Tests
-
-    implementation("androidx.activity:activity-compose:1.6.1") // Optional - Integration with activities
-    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.5.1") // Optional - Integration with ViewModels
-    implementation("androidx.navigation:navigation-compose:2.5.3") // Nav
+    //androidTestImplementation("androidx.compose.ui:ui-test-junit4") // UI Tests
 
     // Unit Tests
     testImplementation("junit:junit:4.13.2")
 
     // Hilt
     implementation("androidx.hilt:hilt-work:1.0.0")
-    implementation("com.google.dagger:hilt-android:2.42")
+    implementation("com.google.dagger:hilt-android:2.44")
+    implementation("androidx.hilt:hilt-navigation-compose:1.1.0-alpha01")
     kapt("com.google.dagger:hilt-compiler:2.42")
     kapt("androidx.hilt:hilt-compiler:1.0.0")
-
-    // For local unit tests
     testImplementation("com.google.dagger:hilt-android-testing:2.42")
     kaptTest("com.google.dagger:hilt-compiler:2.42")
 
@@ -176,4 +173,7 @@ dependencies {
     implementation("androidx.room:room-ktx:2.4.3")
     kapt("androidx.room:room-compiler:2.4.3")
     testImplementation("androidx.room:room-testing:2.4.3")
+
+    // AssertK
+    testImplementation("com.willowtreeapps.assertk:assertk-jvm:0.25")
 }
