@@ -1,16 +1,16 @@
 package com.eferraz.mygooglesheetsconnector.feature.home
 
+import android.content.res.Configuration.UI_MODE_NIGHT_YES
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.rounded.ArrowBack
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
@@ -24,22 +24,6 @@ import com.eferraz.mygooglesheetsconnector.core.designsystem.theme.MyGoogleSheet
 import com.eferraz.mygooglesheetsconnector.core.model.FixedIncome
 import com.eferraz.mygooglesheetsconnector.feature.AppNavigation
 import dagger.hilt.android.AndroidEntryPoint
-
-@Composable
-fun LifecycleAwareObserver(observer: LifecycleObserver) {
-
-    val lifecycleOwner = LocalLifecycleOwner.current
-
-    DisposableEffect(observer, lifecycleOwner) {
-
-        lifecycleOwner.lifecycle.addObserver(observer)
-
-        onDispose {
-            lifecycleOwner.lifecycle.removeObserver(observer)
-        }
-    }
-}
-
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
@@ -56,41 +40,45 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun FixedIncomeRoute(vm: FixedIncomeListViewModel = hiltViewModel(), onBackClick: () -> Unit) {
 
-   // LifecycleAwareObserver(observer = vm)
-
     val data by vm.uiState.collectAsState(initial = mutableMapOf())
 
     MyGoogleSheetsConnectorTheme {
-        Scaffold {_ ->
-            Lista(data = data, onBackClick = onBackClick)
-        }
+        FixedIncomeListScreen(data = data, onBackClick = onBackClick)
     }
 }
 
-@OptIn(ExperimentalFoundationApi::class)
+@OptIn(ExperimentalFoundationApi::class, ExperimentalMaterial3Api::class)
 @Composable
-fun Lista(data: Map<String, List<FixedIncome>>, function: (() -> Unit)? = null, onBackClick: ()->Unit) {
+fun FixedIncomeListScreen(data: Map<String, List<FixedIncome>>, function: (() -> Unit)? = null, onBackClick: () -> Unit) {
 
-    Column {
-        Text(text = "Voltar", modifier = Modifier.fillMaxWidth().padding(16.dp).clickable {
-            onBackClick()
-        })
+    Scaffold(topBar = { MyTopAppBar(onBackClick) }, modifier = Modifier.fillMaxSize()) {
 
-        LazyColumn {
-            data.forEach { (section, listItem) ->
-                stickyHeader {
-                    Greeting(name = section)
-                }
-                items(items = listItem) { dataItem ->
-                    Row {
-                        Column(Modifier.weight(.50f)) { Greeting(dataItem.name, function) }
-                        Column(Modifier.weight(.25f)) { Greeting(dataItem.investment, function) }
-                        Column(Modifier.weight(.25f)) { Greeting(dataItem.amount, function) }
+        Column(modifier = Modifier.padding(it)) {
+
+            LazyColumn {
+                data.forEach { (section, listItem) ->
+                    stickyHeader {
+                        Greeting(name = section)
+                    }
+                    items(items = listItem) { dataItem ->
+                        Row {
+                            Column(Modifier.weight(.50f)) { Greeting(dataItem.name, function) }
+                            Column(Modifier.weight(.25f)) { Greeting(dataItem.investment, function) }
+                            Column(Modifier.weight(.25f)) { Greeting(dataItem.amount, function) }
+                        }
                     }
                 }
             }
         }
     }
+}
+
+@Composable
+@OptIn(ExperimentalMaterial3Api::class)
+private fun MyTopAppBar(onBackClick: () -> Unit) {
+    TopAppBar(
+        title = { Text(text = "Lista de Renda Fíxa", modifier = Modifier.padding(start = 16.dp)) },
+        navigationIcon = { Icon(imageVector = Icons.Rounded.ArrowBack, contentDescription = null, modifier = Modifier.clickable { onBackClick() }) })
 }
 
 @Composable
@@ -100,10 +88,15 @@ fun Greeting(name: String, function: (() -> Unit)? = null) {
     })
 }
 
-@Preview(showBackground = true)
+@Preview
+@Preview(uiMode = UI_MODE_NIGHT_YES)
 @Composable
 fun DefaultPreview() {
     MyGoogleSheetsConnectorTheme {
-        Greeting("Android") {}
+        FixedIncomeListScreen(
+            mapOf("2022 - 10" to mutableListOf<FixedIncome>().apply {
+                repeat(5) { add(FixedIncome("2022", "10", "Fixed Income", "R$ 100,00", "R$ 1000,00")) }
+            })
+        ) {}
     }
 }
