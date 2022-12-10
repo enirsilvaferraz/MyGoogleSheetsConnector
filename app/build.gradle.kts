@@ -90,7 +90,11 @@ plugins {
     }
 
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.3.2"
+        kotlinCompilerExtensionVersion = "1.4.0-alpha01"
+    }
+
+    kotlinOptions {
+        jvmTarget = "1.8"
     }
 
     packagingOptions {
@@ -147,10 +151,12 @@ dependencies {
     implementation("androidx.compose.material3:material3-window-size-class") // Optional - Add window size utils
     implementation("androidx.compose.ui:ui-tooling-preview") // Android Studio Preview support
     implementation("androidx.activity:activity-compose:1.6.1") // Optional - Integration with activities
-    implementation("androidx.navigation:navigation-compose:2.5.3") // Nav
     debugImplementation("androidx.compose.ui:ui-tooling") // Android Studio Preview support
     debugImplementation("androidx.compose.ui:ui-test-manifest") // UI Tests
     //androidTestImplementation("androidx.compose.ui:ui-test-junit4") // UI Tests
+
+    // Navigation
+    implementation("androidx.navigation:navigation-compose:2.5.3")
 
     // Unit Tests
     testImplementation("junit:junit:4.13.2")

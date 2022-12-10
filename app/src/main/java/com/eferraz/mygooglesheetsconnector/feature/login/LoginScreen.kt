@@ -21,12 +21,13 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.eferraz.googlesheets.providers.GoogleSignInViewModel
 import com.eferraz.googlesheets.providers.LoginClientState
 import com.eferraz.mygooglesheetsconnector.core.designsystem.theme.MyGoogleSheetsConnectorTheme
 
 @Composable
-fun LoginRoute(vm: GoogleSignInViewModel, onFinish: () -> Unit) {
+fun LoginRoute(vm: GoogleSignInViewModel = hiltViewModel(), onFinish: () -> Unit) {
 
     val state by vm.clientState.collectAsState()
 
