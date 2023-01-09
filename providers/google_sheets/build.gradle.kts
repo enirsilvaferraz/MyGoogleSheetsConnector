@@ -92,12 +92,12 @@ dependencies {
 
     // Hilt
     implementation("androidx.hilt:hilt-work:1.0.0")
-    implementation("com.google.dagger:hilt-android:2.44")
+    implementation("com.google.dagger:hilt-android:2.44.2")
     implementation("androidx.hilt:hilt-navigation-compose:1.1.0-alpha01")
-    kapt("com.google.dagger:hilt-compiler:2.42")
+    kapt("com.google.dagger:hilt-compiler:2.44.2")
     kapt("androidx.hilt:hilt-compiler:1.0.0")
-    testImplementation("com.google.dagger:hilt-android-testing:2.42")
-    kaptTest("com.google.dagger:hilt-compiler:2.42")
+    testImplementation("com.google.dagger:hilt-android-testing:2.44.2")
+    kaptTest("com.google.dagger:hilt-compiler:2.44.2")
 
     // Google Sheets
     implementation("com.google.apis:google-api-services-sheets:v4-rev20210629-1.32.1")
@@ -105,7 +105,7 @@ dependencies {
     implementation("com.google.api-client:google-api-client-android:1.35.0")
 
     // Firebase
-    implementation(platform("com.google.firebase:firebase-bom:30.2.0"))
+    implementation(platform("com.google.firebase:firebase-bom:31.1.1"))
     implementation("com.google.firebase:firebase-analytics-ktx")
     implementation("com.google.firebase:firebase-auth")
     implementation("com.google.firebase:firebase-auth-ktx")

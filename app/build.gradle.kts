@@ -144,7 +144,7 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.5.1") // Optional - Integration with ViewModels
 
     // Compose
-    implementation(platform("androidx.compose:compose-bom:2022.11.00"))
+    implementation(platform("androidx.compose:compose-bom:2022.12.00"))
     implementation("androidx.compose.material3:material3")
     implementation("androidx.compose.material:material-icons-core") // Icons
     implementation("androidx.compose.material:material-icons-extended") // Optional - Add full set of material icons
@@ -159,19 +159,19 @@ dependencies {
     implementation("androidx.navigation:navigation-compose:2.5.3")
 
     // Status Bat
-    implementation("com.google.accompanist:accompanist-systemuicontroller:0.23.1")
+    implementation("com.google.accompanist:accompanist-systemuicontroller:0.28.0")
 
     // Unit Tests
     testImplementation("junit:junit:4.13.2")
 
     // Hilt
     implementation("androidx.hilt:hilt-work:1.0.0")
-    implementation("com.google.dagger:hilt-android:2.44")
+    implementation("com.google.dagger:hilt-android:2.44.2")
     implementation("androidx.hilt:hilt-navigation-compose:1.1.0-alpha01")
-    kapt("com.google.dagger:hilt-compiler:2.42")
+    kapt("com.google.dagger:hilt-compiler:2.44.2")
     kapt("androidx.hilt:hilt-compiler:1.0.0")
-    testImplementation("com.google.dagger:hilt-android-testing:2.42")
-    kaptTest("com.google.dagger:hilt-compiler:2.42")
+    testImplementation("com.google.dagger:hilt-android-testing:2.44.2")
+    kaptTest("com.google.dagger:hilt-compiler:2.44.2")
 
     // WorkManager
     implementation("androidx.work:work-runtime-ktx:2.7.1")
