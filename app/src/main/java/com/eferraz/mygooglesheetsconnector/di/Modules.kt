@@ -79,7 +79,7 @@ abstract class FixedIncomeBindModule {
 
     @LocalDataSource
     @Binds
-    abstract fun bindReadableLocalRepository(repository: GenericReadableLocalRepositoryImpl<FixedIncome>): BaseReadableRepository<Unit, MutableList<FixedIncome>>
+    abstract fun bindReadableLocalRepository(repository: GenericReadableRepositoryImpl<FixedIncome>): BaseReadableRepository<Unit, MutableList<FixedIncome>>
 
     @LocalDataSource
     @Binds

@@ -9,6 +9,9 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface FixedIncomeDao : GenericRoomDatasource<FixedIncome> {
 
-    @Query("SELECT * FROM FixedIncome")
+    @Query("SELECT * FROM FixedIncome WHERE month = 01 AND year = 2023 ORDER BY year DESC, month DESC")
     override fun get(): Flow<MutableList<FixedIncome>>
+
+    @Query("SELECT * FROM FixedIncome WHERE month = :month AND year = :year")
+    fun get(year: Int, month: Int): Flow<MutableList<FixedIncome>>
 }

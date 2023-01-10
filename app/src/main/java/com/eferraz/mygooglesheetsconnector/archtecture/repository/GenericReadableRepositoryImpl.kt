@@ -4,7 +4,7 @@ import com.eferraz.mygooglesheetsconnector.archtecture.datasource.BaseReadableDa
 import com.eferraz.mygooglesheetsconnector.di.LocalDataSource
 import javax.inject.Inject
 
-class GenericReadableLocalRepositoryImpl<Result> @Inject constructor(
+class GenericReadableRepositoryImpl<Result> @Inject constructor(
     @LocalDataSource private val datasource: BaseReadableDataSource<Result>
 ) : BaseReadableRepository<Unit, MutableList<Result>> {
 

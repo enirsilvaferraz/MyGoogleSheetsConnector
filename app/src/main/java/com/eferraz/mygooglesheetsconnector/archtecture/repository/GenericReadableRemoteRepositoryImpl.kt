@@ -4,6 +4,7 @@ import com.eferraz.mygooglesheetsconnector.archtecture.datasource.BaseReadableDa
 import com.eferraz.mygooglesheetsconnector.di.RemoteDataSource
 import javax.inject.Inject
 
+@Deprecated("")
 class GenericReadableRemoteRepositoryImpl<Result> @Inject constructor(
     @RemoteDataSource private val datasource: BaseReadableDataSource<Result>
 ) : BaseReadableRepository<Unit, MutableList<Result>> {

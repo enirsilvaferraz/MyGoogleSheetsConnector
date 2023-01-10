@@ -10,6 +10,7 @@ plugins {
     id("kotlin-kapt")
     id("dagger.hilt.android.plugin")
     id("com.google.gms.google-services")
+    id("com.google.devtools.ksp")
 }
 
 /**
@@ -90,7 +91,7 @@ plugins {
     }
 
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.4.0-alpha01"
+        kotlinCompilerExtensionVersion = "1.4.0-alpha02"
     }
 
     kotlinOptions {
@@ -113,6 +114,18 @@ plugins {
 
     hilt {
         enableAggregatingTask = true
+    }
+
+    applicationVariants.all { variant ->
+
+        // Encapsulates configurations for the main source set.
+        sourceSets.getByName("main") {
+            // Changes the directory for Java sources. The default directory is
+            // 'src/main/java'.
+            java.setSrcDirs(listOf("build/generated/ksp/${variant.name}/kotlin"))
+        }
+
+        true
     }
 }
 
@@ -185,4 +198,21 @@ dependencies {
 
     // AssertK
     testImplementation("com.willowtreeapps.assertk:assertk-jvm:0.25")
+
+    // Koin
+    val koin_version = "3.3.2"
+    val koin_android_version = "3.3.2"
+    val koin_android_compose_version = "3.4.1"
+    val koin_ksp_version = "1.1.0"
+
+    implementation("io.insert-koin:koin-core:$koin_version")                              // Koin Core features
+    testImplementation("io.insert-koin:koin-test:$koin_version")                          // Koin Test features
+    testImplementation("io.insert-koin:koin-test-junit4:$koin_version")                   // Koin for JUnit 4
+    testImplementation("io.insert-koin:koin-test-junit5:$koin_version")                   // Koin for JUnit 5
+    implementation("io.insert-koin:koin-android:$koin_android_version")                   // Koin main features for Android
+    implementation("io.insert-koin:koin-android-compat:$koin_android_version")            // Java Compatibility
+    implementation("io.insert-koin:koin-androidx-workmanager:$koin_android_version")      // Jetpack WorkManager
+    implementation("io.insert-koin:koin-androidx-navigation:$koin_android_version")       // Navigation Graph
+    implementation("io.insert-koin:koin-androidx-compose:$koin_android_compose_version")  // Jetpack Compose
+    ksp("io.insert-koin:koin-ksp-compiler:$koin_ksp_version")
 }
