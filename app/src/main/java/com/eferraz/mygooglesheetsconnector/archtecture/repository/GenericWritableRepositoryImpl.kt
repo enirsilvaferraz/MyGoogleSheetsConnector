@@ -9,6 +9,8 @@ class GenericWritableRepositoryImpl<Params> @Inject constructor(
 ) : BaseWritableRepository<Params> {
 
     override fun insertOrUpdate(models: MutableList<Params>) {
-        writableDataSource.insertOrUpdate(models)
+        models.forEach {
+            writableDataSource.insert(it)
+        }
     }
 }

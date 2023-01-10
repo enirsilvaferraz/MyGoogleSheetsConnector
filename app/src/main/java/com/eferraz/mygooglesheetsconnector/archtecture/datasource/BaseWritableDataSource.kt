@@ -1,5 +1,10 @@
 package com.eferraz.mygooglesheetsconnector.archtecture.datasource
 
-interface BaseWritableDataSource<Params> {
-    fun insertOrUpdate(models: MutableList<Params>)
+interface BaseWritableDataSource<T> {
+
+    fun insert(obj: T)
+
+    fun insert(vararg obj: T)
+
+    fun delete(obj: T)
 }

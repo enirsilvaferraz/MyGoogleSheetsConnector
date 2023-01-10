@@ -3,12 +3,15 @@ package com.eferraz.mygooglesheetsconnector.di
 import android.content.Context
 import androidx.room.Room
 import com.eferraz.mygooglesheetsconnector.BuildConfig
-import com.eferraz.mygooglesheetsconnector.archtecture.database.GenericDao
 import com.eferraz.mygooglesheetsconnector.archtecture.datasource.*
 import com.eferraz.mygooglesheetsconnector.archtecture.repository.*
+import com.eferraz.mygooglesheetsconnector.archtectureImpl.database.GenericRoomDatasource
+import com.eferraz.mygooglesheetsconnector.archtectureImpl.sheets.GenericSheetsDatasource
+import com.eferraz.mygooglesheetsconnector.archtectureImpl.sheets.ParcelableModel
 import com.eferraz.mygooglesheetsconnector.core.database.AppDatabase
 import com.eferraz.mygooglesheetsconnector.core.datasource.FixedIncomeParcelable
 import com.eferraz.mygooglesheetsconnector.core.model.FixedIncome
+import com.eferraz.mygooglesheetsconnector.di.StringModules.Constants.SHEETS_FIXED_INCOME_RANGE
 import com.eferraz.mygooglesheetsconnector.di.StringModules.Constants.SHEETS_KEY
 import dagger.Binds
 import dagger.Module
@@ -49,7 +52,7 @@ object DatabaseModules {
 object FixedIncomeProvideModule {
 
     @Provides
-    fun provideDao(appDatabase: AppDatabase): GenericDao<FixedIncome> = appDatabase.getFixedIncomeDao()
+    fun provideDao(appDatabase: AppDatabase): GenericRoomDatasource<FixedIncome> = appDatabase.getFixedIncomeDao()
 }
 
 /**
@@ -60,25 +63,31 @@ object FixedIncomeProvideModule {
 abstract class FixedIncomeBindModule {
 
     @Binds
-    abstract fun bindFixedIncomeParcelable(parcelable: FixedIncomeParcelable): ParcelableModel<FixedIncome>
-
-    @Binds
-    abstract fun bindReadableRepository(repository: GenericReadableRepositoryImpl<FixedIncome>): BaseReadableRepository<GenericReadableRepositoryImpl.Params, MutableList<FixedIncome>>
-
-    @Binds
-    abstract fun bindWritableRepository(repository: GenericWritableRepositoryImpl<FixedIncome>): BaseWritableRepository<FixedIncome>
+    abstract fun bindParcelable(parcelable: FixedIncomeParcelable): ParcelableModel<FixedIncome>
 
     @RemoteDataSource
     @Binds
-    abstract fun bindReadableRemoteDataSource(ds: GenericReadableRemoteDataSourceImpl<FixedIncome>): BaseReadableDataSource<FixedIncome>
+    abstract fun bindReadableRemoteDataSource(ds: GenericSheetsDatasource<FixedIncome>): BaseReadableDataSource<FixedIncome>
 
     @LocalDataSource
     @Binds
-    abstract fun bindReadableLocalDataSource(ds: GenericReadableLocalDataSourceImpl<FixedIncome>): BaseReadableDataSource<FixedIncome>
+    abstract fun bindReadableLocalDataSource(ds: GenericRoomDatasource<FixedIncome>): BaseReadableDataSource<FixedIncome>
 
     @LocalDataSource
     @Binds
-    abstract fun bindWritableLocalDataSource(ds: GenericWritableLocalDataSourceImpl<FixedIncome>): BaseWritableDataSource<FixedIncome>
+    abstract fun bindWritableLocalDataSource(ds: GenericRoomDatasource<FixedIncome>): BaseWritableDataSource<FixedIncome>
+
+    @LocalDataSource
+    @Binds
+    abstract fun bindReadableLocalRepository(repository: GenericReadableLocalRepositoryImpl<FixedIncome>): BaseReadableRepository<Unit, MutableList<FixedIncome>>
+
+    @LocalDataSource
+    @Binds
+    abstract fun bindWritableLocalRepository(repository: GenericWritableRepositoryImpl<FixedIncome>): BaseWritableRepository<FixedIncome>
+
+    @RemoteDataSource
+    @Binds
+    abstract fun bindReadableRemoteRepository(repository: GenericReadableRemoteRepositoryImpl<FixedIncome>): BaseReadableRepository<Unit, MutableList<FixedIncome>>
 }
 
 /**
@@ -92,7 +101,12 @@ class StringModules {
     @Named(SHEETS_KEY)
     fun provideSheetsUrl() = BuildConfig.SHEET_KEY
 
+    @Provides
+    @Named(SHEETS_FIXED_INCOME_RANGE)
+    fun provideFixedIncomeRange() = "'Histórico Renda Fixa'!A2:Z1000"
+
     object Constants {
         const val SHEETS_KEY = "SHEETS_KEY"
+        const val SHEETS_FIXED_INCOME_RANGE = "SHEETS_FIXED_INCOME_RANGE"
     }
 }
