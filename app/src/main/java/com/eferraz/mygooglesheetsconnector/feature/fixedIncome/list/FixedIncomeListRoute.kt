@@ -19,9 +19,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.eferraz.mygooglesheetsconnector.archtectureImpl.utils.toCurrency
 import com.eferraz.mygooglesheetsconnector.core.designsystem.theme.MyGoogleSheetsConnectorTheme
 import com.eferraz.mygooglesheetsconnector.core.model.FixedIncome
 import org.koin.androidx.compose.koinViewModel
+import java.time.LocalDate
 
 @Composable
 fun FixedIncomeListRoute(vm: FixedIncomeListViewModel = koinViewModel(), onBackClick: () -> Unit) {
@@ -60,7 +62,7 @@ private fun ContentScreen(data: List<FixedIncome>) {
                     maxLines = 1,
                     modifier = Modifier.weight(1f).padding(end = 8.dp)
                 )
-                Text(text = dataItem.amount)
+                Text(text = dataItem.amount.toCurrency())
             }
         }
     }
@@ -72,17 +74,11 @@ private fun ContentScreen(data: List<FixedIncome>) {
 fun DefaultPreview() {
     MyGoogleSheetsConnectorTheme {
         FixedIncomeListScreen(
-            data = listOf(
-                FixedIncome("2022", "10", "Fixed Income com nome grande", "R$ 100,00", "R$ 1000,00"),
-                FixedIncome("2022", "10", "Fixed Income", "R$ 100,00", "R$ 1000,00"),
-                FixedIncome("2022", "10", "Fixed Income", "R$ 100,00", "R$ 1000,00"),
-                FixedIncome("2022", "10", "Fixed Income", "R$ 100,00", "R$ 1000,00"),
-                FixedIncome("2022", "10", "Fixed Income", "R$ 100,00", "R$ 1000,00"),
-                FixedIncome("2022", "10", "Fixed Income", "R$ 100,00", "R$ 1000,00"),
-                FixedIncome("2022", "10", "Fixed Income", "R$ 100,00", "R$ 1000,00"),
-                FixedIncome("2022", "10", "Fixed Income", "R$ 100,00", "R$ 1000,00"),
-                FixedIncome("2022", "10", "Fixed Income", "R$ 100,00", "R$ 1000,00"),
-            ),
+            data = arrayListOf<FixedIncome>().apply {
+                repeat(6) {
+                    add(FixedIncome(2022, 10, "Fixed Income com nome grande", LocalDate.parse("2023-10-01"), "No Venc", 100.00, 10_000.00))
+                }
+            },
             onBackClick = {}
         )
     }

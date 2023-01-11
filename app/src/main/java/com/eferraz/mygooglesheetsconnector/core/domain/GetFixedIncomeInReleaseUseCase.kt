@@ -7,9 +7,9 @@ import kotlinx.coroutines.flow.Flow
 import org.koin.core.annotation.Factory
 
 @Factory
-class GetFixedIncomeListUseCase constructor(
+class GetFixedIncomeInReleaseUseCase constructor(
     private val repository: FixedIncomeRoomRepository
 ) : BaseUseCase<Unit, Flow<MutableList<FixedIncome>>>() {
 
-    override fun invoke(params: Unit) = repository.get()
+    override fun invoke(params: Unit) = repository.getInRelease()
 }

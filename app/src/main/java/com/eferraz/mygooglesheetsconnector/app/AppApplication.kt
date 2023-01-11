@@ -1,23 +1,18 @@
 package com.eferraz.mygooglesheetsconnector.app
 
 import android.app.Application
-import android.util.Log
-import androidx.hilt.work.HiltWorkerFactory
-import androidx.work.Configuration
-import com.eferraz.mygooglesheetsconnector.di.KoinModules
-import dagger.hilt.android.HiltAndroidApp
+import com.eferraz.mygooglesheetsconnector.AppModules
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
-import javax.inject.Inject
+import org.koin.ksp.generated.module
 
-@HiltAndroidApp
-class AppApplication @Inject constructor() : Application(), Configuration.Provider {
 
-    @Inject
-    lateinit var workerFactory: HiltWorkerFactory
+class AppApplication : Application()
+//    , Configuration.Provider
+{
 
-    override fun getWorkManagerConfiguration() = Configuration.Builder().setMinimumLoggingLevel(Log.INFO).setWorkerFactory(workerFactory).build()
+    // override fun getWorkManagerConfiguration() = Configuration.Builder().setMinimumLoggingLevel(Log.INFO).setWorkerFactory(workerFactory).build()
 
     override fun onCreate() {
         super.onCreate()
@@ -28,7 +23,7 @@ class AppApplication @Inject constructor() : Application(), Configuration.Provid
             // Reference Android context
             androidContext(this@AppApplication)
             // Load modules
-            modules(KoinModules.modules)
+            modules(AppModules().module)
         }
     }
 }

@@ -2,22 +2,22 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "f2d5d737bdabaf7cbdb4153bb1b08d8c",
+    "identityHash": "f1e6cfd5f7e0eb66adeaa3bbadaddee9",
     "entities": [
       {
         "tableName": "FixedIncome",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`year` TEXT NOT NULL, `month` TEXT NOT NULL, `name` TEXT NOT NULL, `investment` TEXT NOT NULL, `amount` TEXT NOT NULL, PRIMARY KEY(`year`, `month`, `name`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`year` INTEGER NOT NULL, `month` INTEGER NOT NULL, `name` TEXT NOT NULL, `dueDate` TEXT, `liquidity` TEXT NOT NULL, `investment` REAL NOT NULL, `amount` REAL NOT NULL, PRIMARY KEY(`year`, `month`, `name`))",
         "fields": [
           {
             "fieldPath": "year",
             "columnName": "year",
-            "affinity": "TEXT",
+            "affinity": "INTEGER",
             "notNull": true
           },
           {
             "fieldPath": "month",
             "columnName": "month",
-            "affinity": "TEXT",
+            "affinity": "INTEGER",
             "notNull": true
           },
           {
@@ -27,15 +27,27 @@
             "notNull": true
           },
           {
+            "fieldPath": "dueDate",
+            "columnName": "dueDate",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "liquidity",
+            "columnName": "liquidity",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
             "fieldPath": "investment",
             "columnName": "investment",
-            "affinity": "TEXT",
+            "affinity": "REAL",
             "notNull": true
           },
           {
             "fieldPath": "amount",
             "columnName": "amount",
-            "affinity": "TEXT",
+            "affinity": "REAL",
             "notNull": true
           }
         ],
@@ -54,7 +66,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'f2d5d737bdabaf7cbdb4153bb1b08d8c')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'f1e6cfd5f7e0eb66adeaa3bbadaddee9')"
     ]
   }
 }

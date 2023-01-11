@@ -8,7 +8,6 @@ plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
     id("kotlin-kapt")
-    id("dagger.hilt.android.plugin")
     id("com.google.gms.google-services")
     id("com.google.devtools.ksp")
 }
@@ -112,20 +111,11 @@ plugins {
         }
     }
 
-    hilt {
-        enableAggregatingTask = true
-    }
-
-    applicationVariants.all { variant ->
-
-        // Encapsulates configurations for the main source set.
-        sourceSets.getByName("main") {
-            // Changes the directory for Java sources. The default directory is
-            // 'src/main/java'.
-            java.setSrcDirs(listOf("build/generated/ksp/${variant.name}/kotlin"))
+    androidComponents.onVariants { variant ->
+        val name = variant.name
+        sourceSets {
+            getByName(name).kotlin.srcDir("${buildDir.absolutePath}/generated/ksp/${name}/kotlin")
         }
-
-        true
     }
 }
 
@@ -177,15 +167,6 @@ dependencies {
     // Unit Tests
     testImplementation("junit:junit:4.13.2")
 
-    // Hilt
-    implementation("androidx.hilt:hilt-work:1.0.0")
-    implementation("com.google.dagger:hilt-android:2.44.2")
-    implementation("androidx.hilt:hilt-navigation-compose:1.1.0-alpha01")
-    kapt("com.google.dagger:hilt-compiler:2.44.2")
-    kapt("androidx.hilt:hilt-compiler:1.0.0")
-    testImplementation("com.google.dagger:hilt-android-testing:2.44.2")
-    kaptTest("com.google.dagger:hilt-compiler:2.44.2")
-
     // WorkManager
     implementation("androidx.work:work-runtime-ktx:2.7.1")
     androidTestImplementation("androidx.work:work-testing:2.7.1")
@@ -214,5 +195,6 @@ dependencies {
     implementation("io.insert-koin:koin-androidx-workmanager:$koin_android_version")      // Jetpack WorkManager
     implementation("io.insert-koin:koin-androidx-navigation:$koin_android_version")       // Navigation Graph
     implementation("io.insert-koin:koin-androidx-compose:$koin_android_compose_version")  // Jetpack Compose
+    implementation("io.insert-koin:koin-annotations:$koin_ksp_version")                  // Koin Annotations
     ksp("io.insert-koin:koin-ksp-compiler:$koin_ksp_version")
 }

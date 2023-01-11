@@ -1,6 +1,5 @@
 buildscript {
     dependencies {
-        classpath ("com.google.dagger:hilt-android-gradle-plugin:2.42")
         classpath ("com.google.gms:google-services:4.3.14")
     }
     repositories {
@@ -22,7 +21,7 @@ plugins {
     id("com.android.library") version "7.3.1" apply false
     id("org.jetbrains.kotlin.android") version "1.7.20" apply false
     id("org.jetbrains.kotlin.kapt") version "1.7.20" apply false
-    id ("com.google.devtools.ksp") version "1.7.21-1.0.8"
+    id ("com.google.devtools.ksp") version "1.7.21-1.0.8" apply false
 }
 
 tasks.register("clean", Delete::class) {

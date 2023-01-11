@@ -8,6 +8,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.eferraz.mygooglesheetsconnector.feature.fixedIncome.list.FixedIncomeListRoute
+import com.eferraz.mygooglesheetsconnector.feature.home.HomeRoute
 
 @Composable
 fun AppNavigation(navController: NavHostController = rememberNavController()) {
@@ -24,10 +25,14 @@ fun AppNavigation(navController: NavHostController = rememberNavController()) {
     //    onBackPressed()
    // }
 
-    NavHost(navController = navController, startDestination = "FixedIncomeList") {
+    NavHost(navController = navController, startDestination = "HomeRoute") {
 
         composable(route = "FixedIncomeList") {
             FixedIncomeListRoute(onBackClick = onBackPressed)
+        }
+
+        composable(route = "HomeRoute") {
+            HomeRoute()
         }
     }
 }

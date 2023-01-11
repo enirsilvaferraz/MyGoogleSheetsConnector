@@ -3,13 +3,12 @@ package com.eferraz.googlesheets.providers
 import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewModel
-import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import javax.inject.Inject
+import org.koin.android.annotation.KoinViewModel
 
-@HiltViewModel
-class GoogleSignInViewModel @Inject constructor() : ViewModel(), DefaultLifecycleObserver {
+@KoinViewModel
+class GoogleSignInViewModel: ViewModel(), DefaultLifecycleObserver {
 
     private val _signInState: MutableStateFlow<GoogleSignInState> = MutableStateFlow(GoogleSignInState.Idle)
     internal val signInState: StateFlow<GoogleSignInState> = _signInState

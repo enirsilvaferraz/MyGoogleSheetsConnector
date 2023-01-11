@@ -8,7 +8,7 @@ plugins {
     id("com.android.library")
     id("org.jetbrains.kotlin.android")
     id("kotlin-kapt")
-    id("dagger.hilt.android.plugin")
+    id("com.google.devtools.ksp")
 }
 
 /**
@@ -69,6 +69,13 @@ android {
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
         }
     }
+
+    androidComponents.onVariants { variant ->
+        val name = variant.name
+        sourceSets {
+            getByName(name).kotlin.srcDir("${buildDir.absolutePath}/generated/ksp/${name}/kotlin")
+        }
+    }
 }
 
 /**
@@ -90,15 +97,6 @@ dependencies {
     // Unit Tests
     testImplementation("junit:junit:4.13.2")
 
-    // Hilt
-    implementation("androidx.hilt:hilt-work:1.0.0")
-    implementation("com.google.dagger:hilt-android:2.44.2")
-    implementation("androidx.hilt:hilt-navigation-compose:1.1.0-alpha01")
-    kapt("com.google.dagger:hilt-compiler:2.44.2")
-    kapt("androidx.hilt:hilt-compiler:1.0.0")
-    testImplementation("com.google.dagger:hilt-android-testing:2.44.2")
-    kaptTest("com.google.dagger:hilt-compiler:2.44.2")
-
     // Google Sheets
     implementation("com.google.apis:google-api-services-sheets:v4-rev20210629-1.32.1")
     implementation("com.google.android.gms:play-services-auth:20.3.0")
@@ -109,4 +107,22 @@ dependencies {
     implementation("com.google.firebase:firebase-analytics-ktx")
     implementation("com.google.firebase:firebase-auth")
     implementation("com.google.firebase:firebase-auth-ktx")
+
+    // Koin
+    val koin_version = "3.3.2"
+    val koin_android_version = "3.3.2"
+    val koin_android_compose_version = "3.4.1"
+    val koin_ksp_version = "1.1.0"
+
+    implementation("io.insert-koin:koin-core:$koin_version")                              // Koin Core features
+    testImplementation("io.insert-koin:koin-test:$koin_version")                          // Koin Test features
+    testImplementation("io.insert-koin:koin-test-junit4:$koin_version")                   // Koin for JUnit 4
+    testImplementation("io.insert-koin:koin-test-junit5:$koin_version")                   // Koin for JUnit 5
+    implementation("io.insert-koin:koin-android:$koin_android_version")                   // Koin main features for Android
+    implementation("io.insert-koin:koin-android-compat:$koin_android_version")            // Java Compatibility
+    implementation("io.insert-koin:koin-androidx-workmanager:$koin_android_version")      // Jetpack WorkManager
+    implementation("io.insert-koin:koin-androidx-navigation:$koin_android_version")       // Navigation Graph
+    implementation("io.insert-koin:koin-androidx-compose:$koin_android_compose_version")  // Jetpack Compose
+    implementation ("io.insert-koin:koin-annotations:$koin_ksp_version")                  // Koin Annotations
+    ksp("io.insert-koin:koin-ksp-compiler:$koin_ksp_version")
 }

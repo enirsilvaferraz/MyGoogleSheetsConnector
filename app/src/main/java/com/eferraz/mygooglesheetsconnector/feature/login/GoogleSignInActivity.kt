@@ -10,13 +10,10 @@ import androidx.work.WorkManager
 import com.eferraz.googlesheets.providers.GoogleSignInActivityAbs
 import com.eferraz.mygooglesheetsconnector.feature.home.MainActivity
 import com.eferraz.mygooglesheetsconnector.feature.sync.SyncGoogleSheetsWorkManager
-import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
-@AndroidEntryPoint
-class GoogleSignInActivity @Inject constructor() : GoogleSignInActivityAbs() {
+class GoogleSignInActivity : GoogleSignInActivityAbs() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

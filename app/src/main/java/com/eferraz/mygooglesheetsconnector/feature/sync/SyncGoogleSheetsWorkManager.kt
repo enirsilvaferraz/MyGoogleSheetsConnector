@@ -2,20 +2,21 @@ package com.eferraz.mygooglesheetsconnector.feature.sync
 
 import android.content.Context
 import android.util.Log
-import androidx.hilt.work.HiltWorker
 import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
 import com.eferraz.mygooglesheetsconnector.core.domain.SynchronizeDataBaseUseCase
-import dagger.assisted.Assisted
-import dagger.assisted.AssistedInject
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.withContext
+import org.koin.core.component.KoinComponent
+import org.koin.core.component.inject
 
-@HiltWorker
-class SyncGoogleSheetsWorkManager @AssistedInject constructor(
-    @Assisted appContext: Context, @Assisted workerParams: WorkerParameters, var synchronize: SynchronizeDataBaseUseCase
-) : CoroutineWorker(appContext, workerParams) {
+class SyncGoogleSheetsWorkManager constructor(
+    appContext: Context,
+    workerParams: WorkerParameters
+) : CoroutineWorker(appContext, workerParams), KoinComponent {
+
+    private val synchronize: SynchronizeDataBaseUseCase by inject()
 
     override suspend fun doWork(): Result = withContext(Dispatchers.IO) {
         try {
