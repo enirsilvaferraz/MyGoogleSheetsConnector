@@ -14,13 +14,13 @@ import com.google.api.services.sheets.v4.SheetsScopes
 import com.google.api.services.sheets.v4.model.ValueRange
 import org.koin.core.annotation.Singleton
 
-interface SheetsProvider{
+internal interface SheetsProvider{
     //fun append(sheetID: String, range: String?, values: MutableList<MutableList<*>>): DataSourceResponse<List<List<Any>>>
     fun get(sheetID: String, range: String): List<List<Any>>
 }
 
 @Singleton
-class SheetsProviderImpl constructor(private val context: Context) : SheetsProvider {
+internal class SheetsProviderImpl constructor(private val context: Context) : SheetsProvider {
 
     private fun getSheets(): Sheets {
 

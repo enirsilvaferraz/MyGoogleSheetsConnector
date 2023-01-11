@@ -11,7 +11,7 @@ interface GenericSheetsDatasource {
 }
 
 @Factory
-class GenericSheetsDatasourceImpl constructor(
+internal class GenericSheetsDatasourceImpl constructor(
     private val sheetsProvider: SheetsProvider
 ) : GenericSheetsDatasource {
 
