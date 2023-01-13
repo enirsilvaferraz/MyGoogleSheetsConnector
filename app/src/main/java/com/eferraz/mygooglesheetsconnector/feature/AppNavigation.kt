@@ -32,7 +32,9 @@ fun AppNavigation(navController: NavHostController = rememberNavController()) {
         }
 
         composable(route = "HomeRoute") {
-            HomeRoute()
+            HomeRoute(onFixedIncomeHeaderClicked = {
+                navController.navigate("FixedIncomeList")
+            })
         }
     }
 }

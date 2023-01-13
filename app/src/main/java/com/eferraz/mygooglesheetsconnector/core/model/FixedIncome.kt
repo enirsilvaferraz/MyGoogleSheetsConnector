@@ -13,4 +13,4 @@ data class FixedIncome(
     @ColumnInfo(name = "liquidity") val liquidity: String,
     @ColumnInfo(name = "investment") val investment: Double,
     @ColumnInfo(name = "amount") val amount: Double
-)
+) : BaseModel

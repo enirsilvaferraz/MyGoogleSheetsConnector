@@ -16,5 +16,6 @@ interface GenericRoomDatasource<T> {
     @Delete
     fun delete(obj: T)
 
+    @Deprecated("")
     fun get(): Flow<MutableList<T>>
 }

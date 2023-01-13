@@ -4,7 +4,6 @@ import com.eferraz.mygooglesheetsconnector.core.database.FixedIncomeDao
 import com.eferraz.mygooglesheetsconnector.core.model.FixedIncome
 import kotlinx.coroutines.flow.Flow
 import org.koin.core.annotation.Factory
-import java.time.LocalDate
 
 interface FixedIncomeRoomRepository {
     fun insertOrUpdate(models: MutableList<FixedIncome>)
@@ -19,5 +18,5 @@ class FixedIncomeRoomRepositoryImpl(private val dao: FixedIncomeDao) : FixedInco
 
     override fun get() = dao.get()
 
-    override fun getInRelease() = dao.getF(LocalDate.now().plusYears(1))
+    override fun getInRelease() = dao.getF()
 }
