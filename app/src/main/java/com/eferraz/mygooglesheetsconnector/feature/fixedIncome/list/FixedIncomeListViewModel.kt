@@ -11,6 +11,6 @@ class FixedIncomeListViewModel constructor(
     getFixedIncomeListUseCase: GetFixedIncomeListUseCase
 ) : ViewModel() {
 
-    private val _uiState = getFixedIncomeListUseCase(Unit)
+    private val _uiState = getFixedIncomeListUseCase()
     val uiState: Flow<List<FixedIncome>> = _uiState
 }

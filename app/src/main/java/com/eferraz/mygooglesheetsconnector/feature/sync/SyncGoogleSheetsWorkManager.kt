@@ -21,7 +21,7 @@ class SyncGoogleSheetsWorkManager constructor(
     override suspend fun doWork(): Result = withContext(Dispatchers.IO) {
         try {
             Log.d("ENIR", "Sincronização Iniciada!")
-            synchronize(Unit).collect()
+            synchronize().collect()
             Log.d("ENIR", "Sincronização Finalizada com Sucesso!")
             Result.success()
         } catch (e: Exception) {

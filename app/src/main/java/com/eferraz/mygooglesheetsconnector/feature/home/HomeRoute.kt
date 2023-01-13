@@ -1,7 +1,6 @@
 package com.eferraz.mygooglesheetsconnector.feature.home
 
 import android.content.res.Configuration.UI_MODE_NIGHT_YES
-import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -39,7 +38,6 @@ import com.eferraz.mygooglesheetsconnector.feature.fixedIncome.list.FixedIncomeV
 import org.koin.androidx.compose.koinViewModel
 import java.time.LocalDate
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeRoute(viewModel: HomeViewModel = koinViewModel(), onFixedIncomeHeaderClicked: () -> Unit) {
 
@@ -88,7 +86,6 @@ private fun ContentScreen(modifier: Modifier, data: Map<String, List<BaseModel>>
     }
 }
 
-@OptIn(ExperimentalFoundationApi::class)
 private fun LazyListScope.homeItem(
     title: String,
     data: List<BaseModel>,

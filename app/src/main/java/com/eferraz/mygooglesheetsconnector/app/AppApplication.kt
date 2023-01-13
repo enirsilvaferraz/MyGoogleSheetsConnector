@@ -8,11 +8,7 @@ import org.koin.core.context.startKoin
 import org.koin.ksp.generated.module
 
 
-class AppApplication : Application()
-//    , Configuration.Provider
-{
-
-    // override fun getWorkManagerConfiguration() = Configuration.Builder().setMinimumLoggingLevel(Log.INFO).setWorkerFactory(workerFactory).build()
+class AppApplication : Application() {
 
     override fun onCreate() {
         super.onCreate()

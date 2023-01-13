@@ -12,10 +12,8 @@ import org.koin.android.annotation.KoinViewModel
 class HomeViewModel constructor(getFixedIncomeListUseCase: GetFixedIncomeInReleaseUseCase) : ViewModel() {
 
     private val _uiState: Flow<Map<String, List<BaseModel>>> = merge(
-        getFixedIncomeListUseCase(Unit).map { list -> list.groupBy { it::class.simpleName.orEmpty() } }
+        getFixedIncomeListUseCase().map { list -> list.groupBy { it::class.simpleName.orEmpty() } }
     )
 
     val uiState = _uiState
-
-    data class HomeModel<T : BaseModel>(val data: MutableList<T>)
 }
