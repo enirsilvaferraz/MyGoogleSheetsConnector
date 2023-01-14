@@ -27,6 +27,10 @@ fun FixedIncomeView(data: FixedIncome) {
                 Text(text = data.name, overflow = TextOverflow.Ellipsis, maxLines = 1, fontSize = 20.sp, fontWeight = FontWeight.Bold)
             }
             Row {
+                Text(text = "Corretora: ", overflow = TextOverflow.Ellipsis, maxLines = 1, modifier = Modifier.weight(1f).padding(end = 8.dp))
+                Text(text = data.bank)
+            }
+            Row {
                 Text(text = "Vencimento: ", overflow = TextOverflow.Ellipsis, maxLines = 1, modifier = Modifier.weight(1f).padding(end = 8.dp))
                 Text(text = data.dueDate?.let { LocalDate.from(it).format(DateTimeFormatter.ISO_DATE) } ?: "")
             }

@@ -2,11 +2,11 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "f1e6cfd5f7e0eb66adeaa3bbadaddee9",
+    "identityHash": "046c4eadc37a1298b29f65b86c990729",
     "entities": [
       {
         "tableName": "FixedIncome",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`year` INTEGER NOT NULL, `month` INTEGER NOT NULL, `name` TEXT NOT NULL, `dueDate` TEXT, `liquidity` TEXT NOT NULL, `investment` REAL NOT NULL, `amount` REAL NOT NULL, PRIMARY KEY(`year`, `month`, `name`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`year` INTEGER NOT NULL, `month` INTEGER NOT NULL, `name` TEXT NOT NULL, `bank` TEXT NOT NULL, `type` TEXT NOT NULL, `dueDate` TEXT, `liquidity` TEXT NOT NULL, `investment` REAL NOT NULL, `amount` REAL NOT NULL, `group` TEXT NOT NULL, `target` TEXT NOT NULL, PRIMARY KEY(`year`, `month`, `name`))",
         "fields": [
           {
             "fieldPath": "year",
@@ -23,6 +23,18 @@
           {
             "fieldPath": "name",
             "columnName": "name",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "bank",
+            "columnName": "bank",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "type",
+            "columnName": "type",
             "affinity": "TEXT",
             "notNull": true
           },
@@ -49,6 +61,18 @@
             "columnName": "amount",
             "affinity": "REAL",
             "notNull": true
+          },
+          {
+            "fieldPath": "group",
+            "columnName": "group",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "target",
+            "columnName": "target",
+            "affinity": "TEXT",
+            "notNull": true
           }
         ],
         "primaryKey": {
@@ -66,7 +90,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'f1e6cfd5f7e0eb66adeaa3bbadaddee9')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '046c4eadc37a1298b29f65b86c990729')"
     ]
   }
 }

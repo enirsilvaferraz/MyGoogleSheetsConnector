@@ -21,7 +21,7 @@ class FixedIncomeSheetsRepositoryImpl(
 ) : FixedIncomeSheetsRepository {
 
     private val sheetsKey: String = BuildConfig.SHEET_KEY
-    private val range: String = "'Histórico Renda Fixa'!A2:Z1000"
+    private val range: String = "'Histórico Renda Fixa'!2:1000"
 
     override fun get(): Flow<List<FixedIncome>> = datasource.get(sheetsKey, range).map { it.toFixedIncome() }
 
@@ -30,6 +30,10 @@ class FixedIncomeSheetsRepositoryImpl(
             name = data.data('F'),
             year = data.data('B').toInt(),
             month = data.data('C').toInt(),
+            bank = data.data('D'),
+            type = data.data('E'),
+            group = data.data('Q'),
+            target = data.data('R'),
             dueDate = data.data('K').toDate(),
             liquidity = data.data('L'),
             investment = data.data('N').toDouble(),

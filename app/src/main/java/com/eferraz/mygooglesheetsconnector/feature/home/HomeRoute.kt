@@ -36,7 +36,6 @@ import com.eferraz.mygooglesheetsconnector.core.model.BaseModel
 import com.eferraz.mygooglesheetsconnector.core.model.FixedIncome
 import com.eferraz.mygooglesheetsconnector.feature.fixedIncome.list.FixedIncomeView
 import org.koin.androidx.compose.koinViewModel
-import java.time.LocalDate
 
 @Composable
 fun HomeRoute(viewModel: HomeViewModel = koinViewModel(), onFixedIncomeHeaderClicked: () -> Unit) {
@@ -139,9 +138,9 @@ fun HomeRoutePreview() {
     MyGoogleSheetsConnectorTheme {
         HomeScreen(
             modifier = Modifier,
-            data = mutableListOf(
-                FixedIncome(2023, 5, "CDB Vence Perto", LocalDate.parse("2023-06-15"), "No Venc", 0.0, 10_000.00),
-                FixedIncome(2023, 5, "CDB Vence Perto", LocalDate.parse("2023-06-15"), "No Venc", 0.0, 10_000.00)
+            data = mutableListOf<FixedIncome>(
+                //FixedIncome(2023, 5, "CDB Vence Perto", LocalDate.parse("2023-06-15"), "No Venc", 0.0, 10_000.00),
+                //FixedIncome(2023, 5, "CDB Vence Perto", LocalDate.parse("2023-06-15"), "No Venc", 0.0, 10_000.00)
             ).groupBy { it::class.simpleName.orEmpty() },
             onFixedIncomeHeaderClicked = {}
         )
