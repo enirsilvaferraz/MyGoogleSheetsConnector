@@ -24,7 +24,7 @@ class GoogleSignInActivity : GoogleSignInActivityAbs() {
     }
 
     private fun onLoginFinished() {
-        startWorkManager()
+        //startWorkManager()
         lifecycleScope.launch {
             delay(1500)
             startActivity(Intent(this@GoogleSignInActivity, MainActivity::class.java))

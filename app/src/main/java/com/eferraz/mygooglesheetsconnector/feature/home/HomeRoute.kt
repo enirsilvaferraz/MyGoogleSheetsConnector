@@ -1,6 +1,7 @@
 package com.eferraz.mygooglesheetsconnector.feature.home
 
 import android.content.res.Configuration.UI_MODE_NIGHT_YES
+import android.widget.Toast
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -12,19 +13,23 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.Sync
 import androidx.compose.material.icons.rounded.ArrowForward
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.LargeTopAppBar
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment.Companion.CenterVertically
 import androidx.compose.ui.Alignment.Companion.End
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
@@ -41,24 +46,38 @@ import org.koin.androidx.compose.koinViewModel
 fun HomeRoute(viewModel: HomeViewModel = koinViewModel(), onFixedIncomeHeaderClicked: () -> Unit) {
 
     val uiState by viewModel.uiState.collectAsState(initial = hashMapOf())
+    val message by viewModel.message.collectAsState()
 
     MyGoogleSheetsConnectorTheme {
-        HomeScreen(modifier = Modifier, uiState, onFixedIncomeHeaderClicked)
+        HomeScreen(modifier = Modifier, uiState, onFixedIncomeHeaderClicked, onSyncClicked = viewModel::onSyncClicked)
+    }
+
+
+    if (message.isNotBlank()) {
+        val current = LocalContext.current
+        LaunchedEffect(key1 = message, block = {
+            Toast.makeText(current, message, Toast.LENGTH_SHORT).show()
+        })
     }
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-private fun HomeScreen(modifier: Modifier, data: Map<String, List<BaseModel>>, onFixedIncomeHeaderClicked: () -> Unit) {
+private fun HomeScreen(modifier: Modifier, data: Map<String, List<BaseModel>>, onFixedIncomeHeaderClicked: () -> Unit, onSyncClicked: () -> Unit) {
 
     Scaffold(
         topBar = {
-            LargeTopAppBar(title = {
-                Text(
-                    text = "Meus Investimentos",
-                    textAlign = TextAlign.Center
-                )
-            })
+            LargeTopAppBar(
+                title = {
+                    Text(
+                        text = "Meus Investimentos",
+                        textAlign = TextAlign.Center
+                    )
+                }, actions = {
+                    IconButton(onClick = onSyncClicked) {
+                        Icon(imageVector = Icons.Outlined.Sync, contentDescription = null)
+                    }
+                })
         },
         modifier = modifier.fillMaxSize()
     ) { paddingValues ->
@@ -142,7 +161,8 @@ fun HomeRoutePreview() {
                 //FixedIncome(2023, 5, "CDB Vence Perto", LocalDate.parse("2023-06-15"), "No Venc", 0.0, 10_000.00),
                 //FixedIncome(2023, 5, "CDB Vence Perto", LocalDate.parse("2023-06-15"), "No Venc", 0.0, 10_000.00)
             ).groupBy { it::class.simpleName.orEmpty() },
-            onFixedIncomeHeaderClicked = {}
+            onFixedIncomeHeaderClicked = {},
+            onSyncClicked = {}
         )
     }
 }
