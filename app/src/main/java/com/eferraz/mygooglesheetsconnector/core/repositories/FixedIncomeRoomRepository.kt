@@ -9,7 +9,8 @@ import java.time.LocalDate
 interface FixedIncomeRoomRepository {
     fun insertOrUpdate(models: MutableList<FixedIncome>)
     fun get(): Flow<MutableList<FixedIncome>>
-    fun getInRelease(dueDateParam: LocalDate): Flow<MutableList<FixedIncome>>
+    fun getFiltered(startDueDate: LocalDate, endDueDate: LocalDate): Flow<MutableList<FixedIncome>>
+    fun getFiltered(liquidity: String): Flow<MutableList<FixedIncome>>
 }
 
 @Factory
@@ -19,5 +20,7 @@ class FixedIncomeRoomRepositoryImpl(private val dao: FixedIncomeDao) : FixedInco
 
     override fun get() = dao.get()
 
-    override fun getInRelease(dueDateParam: LocalDate) = dao.getFiltered(dueDateParam = dueDateParam)
+    override fun getFiltered(liquidity: String) = dao.getFiltered(liquidity = liquidity)
+
+    override fun getFiltered(startDueDate: LocalDate, endDueDate: LocalDate) = dao.getFiltered(startDueDate = startDueDate, endDueDate = endDueDate)
 }

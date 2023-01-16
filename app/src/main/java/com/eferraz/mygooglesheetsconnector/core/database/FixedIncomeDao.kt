@@ -6,7 +6,6 @@ import com.eferraz.mygooglesheetsconnector.archtectureImpl.database.GenericRoomD
 import com.eferraz.mygooglesheetsconnector.core.model.FixedIncome
 import kotlinx.coroutines.flow.Flow
 import java.time.LocalDate
-import java.time.temporal.TemporalAdjusters.lastDayOfYear
 
 @Dao
 interface FixedIncomeDao : GenericRoomDatasource<FixedIncome> {
@@ -20,9 +19,17 @@ interface FixedIncomeDao : GenericRoomDatasource<FixedIncome> {
         yearParam: Int = LocalDate.now().year
     ): Flow<MutableList<FixedIncome>>
 
-    @Query("SELECT * FROM FixedIncome WHERE dueDate < :dueDateParam AND month = :monthParam AND year = :yearParam ORDER BY dueDate")
+    @Query("SELECT * FROM FixedIncome WHERE dueDate > :startDueDate AND dueDate < :endDueDate AND month = :monthParam AND year = :yearParam ORDER BY dueDate")
     fun getFiltered(
-        dueDateParam: LocalDate = LocalDate.now().with(lastDayOfYear()),
+        startDueDate: LocalDate,
+        endDueDate: LocalDate,
+        monthParam: Int = LocalDate.now().month.value,
+        yearParam: Int = LocalDate.now().year
+    ): Flow<MutableList<FixedIncome>>
+
+    @Query("SELECT * FROM FixedIncome WHERE liquidity = :liquidity AND month = :monthParam AND year = :yearParam ORDER BY dueDate")
+    fun getFiltered(
+        liquidity: String,
         monthParam: Int = LocalDate.now().month.value,
         yearParam: Int = LocalDate.now().year
     ): Flow<MutableList<FixedIncome>>

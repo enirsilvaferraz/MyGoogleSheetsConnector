@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.eferraz.mygooglesheetsconnector.core.domain.GetFixedIncomeInReleaseUseCase
 import com.eferraz.mygooglesheetsconnector.core.domain.SynchronizeDataBaseUseCase
 import com.eferraz.mygooglesheetsconnector.core.domain.definedFiltersIn3Months
+import com.eferraz.mygooglesheetsconnector.core.domain.definedFiltersLiquidity
 import com.eferraz.mygooglesheetsconnector.core.domain.definedFiltersThisYear
 import com.eferraz.mygooglesheetsconnector.core.model.BaseModel
 import kotlinx.coroutines.Dispatchers.IO
@@ -25,10 +26,11 @@ class HomeViewModel constructor(
 ) : ViewModel() {
 
     private val _uiState: Flow<List<HomeItem>> = combine(
+        getFixedIncomeListUseCase(definedFiltersLiquidity()).map { HomeItem.FixedIncomeLiquidity(it) },
         getFixedIncomeListUseCase(definedFiltersIn3Months()).map { HomeItem.FixedIncome3Months(it) },
         getFixedIncomeListUseCase(definedFiltersThisYear()).map { HomeItem.FixedIncomeThisYear(it) }
-    ) { a, b ->
-        listOf(a, b)
+    ) { a, b, c ->
+        listOf(a, b, c)
     }
 
     val uiState = _uiState
@@ -47,5 +49,6 @@ class HomeViewModel constructor(
     open class HomeItem(val title: String, val data: List<BaseModel>) {
         data class FixedIncome3Months(val list: List<BaseModel>) : HomeItem(title = "Renda fíxa a vencer em menos de 3 meses", data = list)
         data class FixedIncomeThisYear(val list: List<BaseModel>) : HomeItem(title = "Renda fíxa a vencer em 2023", data = list)
+        data class FixedIncomeLiquidity(val list: List<BaseModel>) : HomeItem(title = "Liquidez diária", data = list)
     }
 }
