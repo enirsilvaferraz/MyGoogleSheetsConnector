@@ -45,7 +45,7 @@ class HomeViewModel constructor(
     }
 
     open class HomeItem(val title: String, val data: List<BaseModel>) {
-        data class FixedIncome3Months(val list: List<BaseModel>) : HomeItem(title = "Renda fíxa a vencer em 2023", data = list)
-        data class FixedIncomeThisYear(val list: List<BaseModel>) : HomeItem(title = "Renda fíxa a vencer em menos de 3 meses", data = list)
+        data class FixedIncome3Months(val list: List<BaseModel>) : HomeItem(title = "Renda fíxa a vencer em menos de 3 meses", data = list)
+        data class FixedIncomeThisYear(val list: List<BaseModel>) : HomeItem(title = "Renda fíxa a vencer em 2023", data = list)
     }
 }
