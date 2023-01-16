@@ -45,7 +45,7 @@ import org.koin.androidx.compose.koinViewModel
 @Composable
 fun HomeRoute(viewModel: HomeViewModel = koinViewModel(), onFixedIncomeHeaderClicked: () -> Unit) {
 
-    val uiState by viewModel.uiState.collectAsState(initial = hashMapOf())
+    val uiState by viewModel.uiState.collectAsState(initial = listOf())
     val message by viewModel.message.collectAsState()
 
     MyGoogleSheetsConnectorTheme {
@@ -63,7 +63,7 @@ fun HomeRoute(viewModel: HomeViewModel = koinViewModel(), onFixedIncomeHeaderCli
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-private fun HomeScreen(modifier: Modifier, data: Map<String, List<BaseModel>>, onFixedIncomeHeaderClicked: () -> Unit, onSyncClicked: () -> Unit) {
+private fun HomeScreen(modifier: Modifier, data: List<HomeViewModel.HomeItem>, onFixedIncomeHeaderClicked: () -> Unit, onSyncClicked: () -> Unit) {
 
     Scaffold(
         topBar = {
@@ -88,21 +88,16 @@ private fun HomeScreen(modifier: Modifier, data: Map<String, List<BaseModel>>, o
 }
 
 @Composable
-private fun ContentScreen(modifier: Modifier, data: Map<String, List<BaseModel>>, onFixedIncomeHeaderClicked: () -> Unit) {
+private fun ContentScreen(modifier: Modifier, data: List<HomeViewModel.HomeItem>, onFixedIncomeHeaderClicked: () -> Unit) {
 
     LazyColumn(modifier = modifier.padding(horizontal = 16.dp)) {
 
         data.forEach {
-            when (it.key) {
-                "FixedIncome" -> homeItem(
-                    title = "Renda fixa a vencer esse ano",
-                    data = it.value,
-                    onHeaderClicked = onFixedIncomeHeaderClicked
-                ) { FixedIncomeView(it as FixedIncome) }
-            }
+            homeItem(title = it.title, data = it.data, onHeaderClicked = onFixedIncomeHeaderClicked) { FixedIncomeView(it as FixedIncome) }
         }
     }
 }
+
 
 private fun LazyListScope.homeItem(
     title: String,
@@ -157,10 +152,7 @@ fun HomeRoutePreview() {
     MyGoogleSheetsConnectorTheme {
         HomeScreen(
             modifier = Modifier,
-            data = mutableListOf<FixedIncome>(
-                //FixedIncome(2023, 5, "CDB Vence Perto", LocalDate.parse("2023-06-15"), "No Venc", 0.0, 10_000.00),
-                //FixedIncome(2023, 5, "CDB Vence Perto", LocalDate.parse("2023-06-15"), "No Venc", 0.0, 10_000.00)
-            ).groupBy { it::class.simpleName.orEmpty() },
+            data = listOf(),
             onFixedIncomeHeaderClicked = {},
             onSyncClicked = {}
         )

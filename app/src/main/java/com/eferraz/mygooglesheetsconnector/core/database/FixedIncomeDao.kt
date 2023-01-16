@@ -21,9 +21,17 @@ interface FixedIncomeDao : GenericRoomDatasource<FixedIncome> {
     ): Flow<MutableList<FixedIncome>>
 
     @Query("SELECT * FROM FixedIncome WHERE dueDate < :dueDateParam AND month = :monthParam AND year = :yearParam ORDER BY dueDate")
-    fun getF(
+    fun getFiltered(
         dueDateParam: LocalDate = LocalDate.now().with(lastDayOfYear()),
         monthParam: Int = LocalDate.now().month.value,
         yearParam: Int = LocalDate.now().year
     ): Flow<MutableList<FixedIncome>>
 }
+
+data class FixedIncomeRoomView(
+    val name: String,
+    val bank: String,
+    val dueDate: LocalDate?,
+    val investment: Double,
+    val amount: Double
+)
