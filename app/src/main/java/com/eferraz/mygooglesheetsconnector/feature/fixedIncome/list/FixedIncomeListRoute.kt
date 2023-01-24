@@ -1,8 +1,6 @@
 package com.eferraz.mygooglesheetsconnector.feature.fixedIncome.list
 
 import android.content.res.Configuration
-import androidx.compose.foundation.ExperimentalFoundationApi
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
@@ -18,7 +16,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.eferraz.mygooglesheetsconnector.core.designsystem.theme.MyGoogleSheetsConnectorTheme
-import com.eferraz.mygooglesheetsconnector.core.model.FixedIncome
+import com.eferraz.mygooglesheetsconnector.core.domain.GetFixedIncomeListUseCase
+import com.eferraz.mygooglesheetsconnector.feature.home.homeItemHeader
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
@@ -33,25 +32,24 @@ fun FixedIncomeListRoute(vm: FixedIncomeListViewModel = koinViewModel(), onBackC
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-private fun FixedIncomeListScreen(data: List<FixedIncome>, onBackClick: () -> Unit) {
+private fun FixedIncomeListScreen(data: List<GetFixedIncomeListUseCase.Grouped>, onBackClick: () -> Unit) {
 
     Scaffold(
         topBar = { LargeTopAppBar(title = { Text(text = "Renda Fíxa") }) },
         modifier = Modifier.fillMaxSize()
     ) { paddingValues ->
-        Box(modifier = Modifier.padding(paddingValues)) {
-            ContentScreen(data)
-        }
+        ContentScreen(modifier = Modifier.padding(paddingValues), data)
     }
 }
 
 @Composable
-@OptIn(ExperimentalFoundationApi::class)
-private fun ContentScreen(data: List<FixedIncome>) {
-
-    LazyColumn(modifier = Modifier.padding(horizontal = 16.dp)) {
-        items(items = data) { dataItem ->
-            FixedIncomeView(data = dataItem)
+private fun ContentScreen(modifier: Modifier, data: List<GetFixedIncomeListUseCase.Grouped>) {
+    LazyColumn(modifier = modifier.padding(horizontal = 16.dp)) {
+        data.forEach {
+            homeItemHeader(it.title)
+            items(items = it.list) { dataItem ->
+                FixedIncomeView(data = dataItem)
+            }
         }
     }
 }
@@ -62,11 +60,7 @@ private fun ContentScreen(data: List<FixedIncome>) {
 fun DefaultPreview() {
     MyGoogleSheetsConnectorTheme {
         FixedIncomeListScreen(
-            data = arrayListOf<FixedIncome>().apply {
-                repeat(6) {
-                    //add(FixedIncome(2022, 10, "Fixed Income com nome grande", LocalDate.parse("2023-10-01"), "No Venc", 100.00, 10_000.00))
-                }
-            },
+            data = arrayListOf<GetFixedIncomeListUseCase.Grouped>(),
             onBackClick = {}
         )
     }

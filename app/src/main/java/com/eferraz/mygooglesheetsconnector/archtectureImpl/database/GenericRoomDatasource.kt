@@ -3,7 +3,6 @@ package com.eferraz.mygooglesheetsconnector.archtectureImpl.database
 import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
-import kotlinx.coroutines.flow.Flow
 
 interface GenericRoomDatasource<T> {
 
@@ -15,7 +14,4 @@ interface GenericRoomDatasource<T> {
 
     @Delete
     fun delete(obj: T)
-
-    @Deprecated("")
-    fun get(): Flow<MutableList<T>>
 }

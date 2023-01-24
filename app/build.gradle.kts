@@ -143,7 +143,7 @@ dependencies {
     implementation("androidx.core:core-ktx:1.9.0")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.5.1")
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1")
-    implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.5.1")
+    //implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.5.1")
     implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.5.1") // Optional - Integration with ViewModels
 
     // Compose
@@ -172,29 +172,24 @@ dependencies {
     androidTestImplementation("androidx.work:work-testing:2.7.1")
 
     // ROOM
-    implementation("androidx.room:room-runtime:2.4.3")
-    implementation("androidx.room:room-ktx:2.4.3")
-    kapt("androidx.room:room-compiler:2.4.3")
-    testImplementation("androidx.room:room-testing:2.4.3")
+    implementation("androidx.room:room-runtime:2.5.0")
+    implementation("androidx.room:room-ktx:2.5.0")
+    kapt("androidx.room:room-compiler:2.5.0")
+    testImplementation("androidx.room:room-testing:2.5.0")
 
     // AssertK
     testImplementation("com.willowtreeapps.assertk:assertk-jvm:0.25")
 
     // Koin
-    val koin_version = "3.3.2"
-    val koin_android_version = "3.3.2"
-    val koin_android_compose_version = "3.4.1"
-    val koin_ksp_version = "1.1.0"
-
-    implementation("io.insert-koin:koin-core:$koin_version")                              // Koin Core features
-    testImplementation("io.insert-koin:koin-test:$koin_version")                          // Koin Test features
-    testImplementation("io.insert-koin:koin-test-junit4:$koin_version")                   // Koin for JUnit 4
-    testImplementation("io.insert-koin:koin-test-junit5:$koin_version")                   // Koin for JUnit 5
-    implementation("io.insert-koin:koin-android:$koin_android_version")                   // Koin main features for Android
-    implementation("io.insert-koin:koin-android-compat:$koin_android_version")            // Java Compatibility
-    implementation("io.insert-koin:koin-androidx-workmanager:$koin_android_version")      // Jetpack WorkManager
-    implementation("io.insert-koin:koin-androidx-navigation:$koin_android_version")       // Navigation Graph
-    implementation("io.insert-koin:koin-androidx-compose:$koin_android_compose_version")  // Jetpack Compose
-    implementation("io.insert-koin:koin-annotations:$koin_ksp_version")                  // Koin Annotations
-    ksp("io.insert-koin:koin-ksp-compiler:$koin_ksp_version")
+    implementation("io.insert-koin:koin-core:3.3.2")                      // Koin Core features
+    testImplementation("io.insert-koin:koin-test:3.3.2")                  // Koin Test features
+    testImplementation("io.insert-koin:koin-test-junit4:3.3.2")           // Koin for JUnit 4
+    testImplementation("io.insert-koin:koin-test-junit5:3.3.2")           // Koin for JUnit 5
+    implementation("io.insert-koin:koin-android:3.3.2")                   // Koin main features for Android
+    implementation("io.insert-koin:koin-android-compat:3.3.2")            // Java Compatibility
+    implementation("io.insert-koin:koin-androidx-workmanager:3.3.2")      // Jetpack WorkManager
+    implementation("io.insert-koin:koin-androidx-navigation:3.3.2")       // Navigation Graph
+    implementation("io.insert-koin:koin-androidx-compose:3.4.1")          // Jetpack Compose
+    implementation("io.insert-koin:koin-annotations:1.1.0")               // Koin Annotations
+    ksp("io.insert-koin:koin-ksp-compiler:1.1.0")
 }
