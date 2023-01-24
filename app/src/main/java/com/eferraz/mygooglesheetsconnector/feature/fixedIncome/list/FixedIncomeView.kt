@@ -40,7 +40,7 @@ fun FixedIncomeView(modifier: Modifier = Modifier, avatarLabel: String, primaryT
             Box(modifier = Modifier.clip(CircleShape).background(MaterialTheme.colorScheme.primaryContainer).height(45.dp).aspectRatio(1f)) {
 
                 Text(
-                    text = avatarLabel,
+                    text = avatarLabel.substring(0, minOf(4, avatarLabel.length)).uppercase(),
                     modifier = Modifier.align(Center),
                     color = MaterialTheme.colorScheme.onPrimaryContainer,
                     textAlign = TextAlign.Center,
