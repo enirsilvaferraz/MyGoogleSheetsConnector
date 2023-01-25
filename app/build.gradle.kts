@@ -137,8 +137,7 @@ kapt {
 
 dependencies {
 
-    implementation(project(":providers:google_sheets"))
-
+    implementation(project(":libraries:google-client"))
     // Android
     implementation("androidx.work:work-runtime-ktx:2.7.1")
 

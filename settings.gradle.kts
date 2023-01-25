@@ -38,4 +38,4 @@ dependencyResolutionManagement {
 }
 rootProject.name = "MyGoogleSheetsConnector"
 include(":app")
-include(":providers:google_sheets")
+include(":libraries:google-client")
