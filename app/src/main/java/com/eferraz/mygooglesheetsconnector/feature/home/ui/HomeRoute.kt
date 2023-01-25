@@ -40,6 +40,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.eferraz.mygooglesheetsconnector.core.designsystem.theme.MyGoogleSheetsConnectorTheme
 import com.eferraz.mygooglesheetsconnector.feature.fixedIncome.domain.models.FixedIncome
+import com.eferraz.mygooglesheetsconnector.feature.fixedIncome.domain.models.FixedIncomeHistory
+import com.eferraz.mygooglesheetsconnector.feature.fixedIncome.domain.models.FixedIncomeWithHistory
 import com.eferraz.mygooglesheetsconnector.feature.fixedIncome.ui.list.FixedIncomeView
 import com.eferraz.mygooglesheetsconnector.feature.home.domain.GetHomeDataUseCase
 import org.koin.androidx.compose.koinViewModel
@@ -66,7 +68,12 @@ fun HomeRoute(viewModel: HomeViewModel = koinViewModel(), onFixedIncomeHeaderCli
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-private fun HomeScreen(modifier: Modifier, data: List<GetHomeDataUseCase.HomeItem>, onFixedIncomeHeaderClicked: () -> Unit, onSyncClicked: () -> Unit) {
+private fun HomeScreen(
+    modifier: Modifier,
+    data: List<GetHomeDataUseCase.HomeItem>,
+    onFixedIncomeHeaderClicked: () -> Unit,
+    onSyncClicked: () -> Unit
+) {
 
     Scaffold(
         topBar = {
@@ -96,7 +103,7 @@ private fun ContentScreen(modifier: Modifier, data: List<GetHomeDataUseCase.Home
             homeItemHeader(it.title)
             items(it.data) {
                 when (it) {
-                    is FixedIncome -> FixedIncomeView(data = it)
+                    is FixedIncomeWithHistory -> FixedIncomeView(data = it)
                 }
             }
             homeItemFooter(onFixedIncomeHeaderClicked)
@@ -152,21 +159,28 @@ fun HomeRoutePreview() {
     }
 }
 
-val mockFixedIncomeList = arrayListOf<FixedIncome>().apply {
+val mockFixedIncomeList = arrayListOf<FixedIncomeWithHistory>().apply {
     repeat(5) {
         add(
-            FixedIncome(
-                year = 2023,
-                month = 1,
-                name = "CDB de 120% do CDI do Banco Máxima",
-                bank = "NuInvest",
-                type = "CDB",
-                dueDate = LocalDate.now(),
-                liquidity = "Diária",
-                amount = 1000.0,
-                investment = 100.0,
-                group = "CDI - Diário",
-                target = "Aposentadoria"
+            FixedIncomeWithHistory(
+                fixedIncome = FixedIncome(
+                    uuid = "A",
+                    name = "CDB de 120% do CDI do Banco Máxima",
+                    bank = "NuInvest",
+                    type = "CDB",
+                    dueDate = LocalDate.now(),
+                    liquidity = "Diária"
+                ),
+                history = listOf(
+                    FixedIncomeHistory(
+                        year = 2023,
+                        month = 1,
+                        fixedIncomeUuid = "A",
+                        amount = 1000.0,
+                        investment = 100.0,
+                        target = "Aposentadoria"
+                    )
+                )
             )
         )
     }

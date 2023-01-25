@@ -4,14 +4,14 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.eferraz.mygooglesheetsconnector.feature.fixedIncome.domain.models.FixedIncome
+import com.eferraz.mygooglesheetsconnector.feature.fixedIncome.domain.models.FixedIncomeHistory
 
 @Dao
-interface FixedIncomeDao {
+interface FixedIncomeHistoryDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insert(obj: FixedIncome)
+    fun insert(obj: FixedIncomeHistory)
 
-    @Query("DELETE FROM FixedIncome")
-    fun deleteAllFixedIncome()
+    @Query("DELETE FROM FixedIncomeHistory")
+    fun deleteAllHistory()
 }

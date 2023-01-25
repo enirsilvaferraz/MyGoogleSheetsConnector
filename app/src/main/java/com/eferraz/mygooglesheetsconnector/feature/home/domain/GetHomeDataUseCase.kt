@@ -1,7 +1,7 @@
 package com.eferraz.mygooglesheetsconnector.feature.home.domain
 
-import com.eferraz.mygooglesheetsconnector.feature.fixedIncome.domain.models.FixedIncome
-import com.eferraz.mygooglesheetsconnector.feature.fixedIncome.repositories.room.FixedIncomeRoomRepository
+import com.eferraz.mygooglesheetsconnector.feature.fixedIncome.domain.models.FixedIncomeWithHistory
+import com.eferraz.mygooglesheetsconnector.feature.fixedIncome.repositories.room.FixedIncomeWithHistoryRoomRepository
 import com.eferraz.mygooglesheetsconnector.feature.home.domain.GetHomeDataUseCase.HomeItem.FixedIncome3Months
 import com.eferraz.mygooglesheetsconnector.feature.home.domain.GetHomeDataUseCase.HomeItem.FixedIncomeLiquidity
 import com.eferraz.mygooglesheetsconnector.feature.home.domain.GetHomeDataUseCase.HomeItem.FixedIncomeOverDueDate
@@ -14,7 +14,7 @@ import java.time.temporal.TemporalAdjusters.firstDayOfMonth
 import java.time.temporal.TemporalAdjusters.lastDayOfYear
 
 @Factory
-class GetHomeDataUseCase(private val repository: FixedIncomeRoomRepository) {
+class GetHomeDataUseCase(private val repository: FixedIncomeWithHistoryRoomRepository) {
 
     operator fun invoke() = combine(
 
@@ -44,9 +44,9 @@ class GetHomeDataUseCase(private val repository: FixedIncomeRoomRepository) {
     }
 
     open class HomeItem(val title: String, val data: List<Any>) {
-        data class FixedIncomeOverDueDate(val list: List<FixedIncome>) : HomeItem(title = "Renda fíxa vencida nesse mês", data = list)
-        data class FixedIncomeLiquidity(val list: List<FixedIncome>) : HomeItem(title = "Liquidez diária", data = list)
-        data class FixedIncome3Months(val list: List<FixedIncome>) : HomeItem(title = "A vencer em menos de 3 meses", data = list)
-        data class FixedIncomeThisYear(val list: List<FixedIncome>) : HomeItem(title = "Outros investimentos a vencer em 2023", data = list)
+        data class FixedIncomeOverDueDate(val list: List<FixedIncomeWithHistory>) : HomeItem(title = "Renda fíxa vencida nesse mês", data = list)
+        data class FixedIncomeLiquidity(val list: List<FixedIncomeWithHistory>) : HomeItem(title = "Liquidez diária", data = list)
+        data class FixedIncome3Months(val list: List<FixedIncomeWithHistory>) : HomeItem(title = "A vencer em menos de 3 meses", data = list)
+        data class FixedIncomeThisYear(val list: List<FixedIncomeWithHistory>) : HomeItem(title = "Outros investimentos a vencer em 2023", data = list)
     }
 }

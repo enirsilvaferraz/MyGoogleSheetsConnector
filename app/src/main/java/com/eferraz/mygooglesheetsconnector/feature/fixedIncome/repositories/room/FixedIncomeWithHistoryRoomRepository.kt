@@ -1,39 +1,38 @@
 package com.eferraz.mygooglesheetsconnector.feature.fixedIncome.repositories.room
 
-import com.eferraz.mygooglesheetsconnector.feature.fixedIncome.datasources.FixedIncomeDao
-import com.eferraz.mygooglesheetsconnector.feature.fixedIncome.domain.models.FixedIncome
+import com.eferraz.mygooglesheetsconnector.feature.fixedIncome.datasources.FixedIncomeWithHistoryDao
+import com.eferraz.mygooglesheetsconnector.feature.fixedIncome.domain.models.FixedIncomeWithHistory
 import kotlinx.coroutines.flow.Flow
 import org.koin.core.annotation.Factory
 import java.time.LocalDate
 
-interface FixedIncomeRoomRepository {
+interface FixedIncomeWithHistoryRoomRepository {
 
-    fun insertOrUpdate(models: MutableList<FixedIncome>)
+    fun insertOrUpdate(models: List<FixedIncomeWithHistory>)
 
     fun getGrouped(
         month: Int = LocalDate.now().month.value,
         year: Int = LocalDate.now().year
-    ): Flow<Map<String, List<FixedIncome>>>
+    ): Flow<Map<String, List<FixedIncomeWithHistory>>>
 
     fun getFiltered(
         startDueDate: LocalDate,
         endDueDate: LocalDate,
         month: Int = LocalDate.now().month.value,
         year: Int = LocalDate.now().year
-    ): Flow<MutableList<FixedIncome>>
+    ): Flow<MutableList<FixedIncomeWithHistory>>
 
     fun getFiltered(
         liquidity: String,
         month: Int = LocalDate.now().month.value,
         year: Int = LocalDate.now().year
-    ): Flow<MutableList<FixedIncome>>
+    ): Flow<MutableList<FixedIncomeWithHistory>>
 }
 
 @Factory
-class FixedIncomeRoomRepositoryImpl(private val dao: FixedIncomeDao) : FixedIncomeRoomRepository {
-
-    override fun insertOrUpdate(models: MutableList<FixedIncome>) =
-        dao.insert(*models.toTypedArray())
+class FixedIncomeWithHistoryRoomRepositoryImpl(private val dao: FixedIncomeWithHistoryDao) : FixedIncomeWithHistoryRoomRepository {
+    override fun insertOrUpdate(models: List<FixedIncomeWithHistory>) =
+        dao.insert(models)
 
     override fun getGrouped(month: Int, year: Int) =
         dao.getGrouped(month = month, year = year)

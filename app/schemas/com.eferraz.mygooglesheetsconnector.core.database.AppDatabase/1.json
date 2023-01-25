@@ -2,22 +2,16 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "046c4eadc37a1298b29f65b86c990729",
+    "identityHash": "460a1f318ec00f30837d9c0f9c9838c5",
     "entities": [
       {
         "tableName": "FixedIncome",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`year` INTEGER NOT NULL, `month` INTEGER NOT NULL, `name` TEXT NOT NULL, `bank` TEXT NOT NULL, `type` TEXT NOT NULL, `dueDate` TEXT, `liquidity` TEXT NOT NULL, `investment` REAL NOT NULL, `amount` REAL NOT NULL, `group` TEXT NOT NULL, `target` TEXT NOT NULL, PRIMARY KEY(`year`, `month`, `name`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`uuid` TEXT NOT NULL, `name` TEXT NOT NULL, `bank` TEXT NOT NULL, `type` TEXT NOT NULL, `dueDate` TEXT, `liquidity` TEXT NOT NULL, PRIMARY KEY(`uuid`))",
         "fields": [
           {
-            "fieldPath": "year",
-            "columnName": "year",
-            "affinity": "INTEGER",
-            "notNull": true
-          },
-          {
-            "fieldPath": "month",
-            "columnName": "month",
-            "affinity": "INTEGER",
+            "fieldPath": "uuid",
+            "columnName": "uuid",
+            "affinity": "TEXT",
             "notNull": true
           },
           {
@@ -49,6 +43,32 @@
             "columnName": "liquidity",
             "affinity": "TEXT",
             "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "uuid"
+          ]
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "FixedIncomeHistory",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`year` INTEGER NOT NULL, `month` INTEGER NOT NULL, `investment` REAL NOT NULL, `amount` REAL NOT NULL, `target` TEXT NOT NULL, `fixedIncome` TEXT NOT NULL, PRIMARY KEY(`year`, `month`, `fixedIncome`))",
+        "fields": [
+          {
+            "fieldPath": "year",
+            "columnName": "year",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "month",
+            "columnName": "month",
+            "affinity": "INTEGER",
+            "notNull": true
           },
           {
             "fieldPath": "investment",
@@ -63,25 +83,25 @@
             "notNull": true
           },
           {
-            "fieldPath": "group",
-            "columnName": "group",
+            "fieldPath": "target",
+            "columnName": "target",
             "affinity": "TEXT",
             "notNull": true
           },
           {
-            "fieldPath": "target",
-            "columnName": "target",
+            "fieldPath": "fixedIncomeUuid",
+            "columnName": "fixedIncome",
             "affinity": "TEXT",
             "notNull": true
           }
         ],
         "primaryKey": {
+          "autoGenerate": false,
           "columnNames": [
             "year",
             "month",
-            "name"
-          ],
-          "autoGenerate": false
+            "fixedIncome"
+          ]
         },
         "indices": [],
         "foreignKeys": []
@@ -90,7 +110,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '046c4eadc37a1298b29f65b86c990729')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '460a1f318ec00f30837d9c0f9c9838c5')"
     ]
   }
 }
