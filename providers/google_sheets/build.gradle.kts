@@ -87,11 +87,11 @@ android {
 dependencies {
 
     // Android
-    implementation("androidx.core:core-ktx:1.9.0")
-    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.5.1")
-    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1")
+    //implementation("androidx.core:core-ktx:1.9.0")
+    //implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.5.1")
+    //implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1")
     //implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.5.1")
-    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.5.1") // Optional - Integration with ViewModels
+    //implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.5.1") // Optional - Integration with ViewModels
     //implementation "androidx.activity:activity-compose:1.6.0"
 
     // Unit Tests

@@ -1,4 +1,4 @@
-package com.eferraz.mygooglesheetsconnector.feature.home
+package com.eferraz.mygooglesheetsconnector.feature.home.ui
 
 import android.content.res.Configuration.UI_MODE_NIGHT_NO
 import android.content.res.Configuration.UI_MODE_NIGHT_YES
@@ -39,9 +39,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.eferraz.mygooglesheetsconnector.core.designsystem.theme.MyGoogleSheetsConnectorTheme
-import com.eferraz.mygooglesheetsconnector.core.domain.GetHomeDataUseCase
-import com.eferraz.mygooglesheetsconnector.core.model.FixedIncome
-import com.eferraz.mygooglesheetsconnector.feature.fixedIncome.list.FixedIncomeView
+import com.eferraz.mygooglesheetsconnector.feature.fixedIncome.domain.models.FixedIncome
+import com.eferraz.mygooglesheetsconnector.feature.fixedIncome.ui.list.FixedIncomeView
+import com.eferraz.mygooglesheetsconnector.feature.home.domain.GetHomeDataUseCase
 import org.koin.androidx.compose.koinViewModel
 import java.time.LocalDate
 

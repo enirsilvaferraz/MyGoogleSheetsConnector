@@ -1,10 +1,7 @@
-package com.eferraz.mygooglesheetsconnector.core.model
+package com.eferraz.mygooglesheetsconnector.feature.fixedIncome.domain.models
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
-import com.eferraz.googlesheets.data.data
-import com.eferraz.mygooglesheetsconnector.archtectureImpl.utils.toDate
-import com.eferraz.mygooglesheetsconnector.archtectureImpl.utils.toNumber
 import java.time.LocalDate
 
 @Entity(primaryKeys = ["year", "month", "name"])
@@ -20,20 +17,4 @@ data class FixedIncome(
     @ColumnInfo(name = "amount") val amount: Double,// Historico
     @ColumnInfo(name = "group") val group: String, // Calc
     @ColumnInfo(name = "target") val target: String // Historico
-) : BaseModel
-
-fun List<List<Any>>.toModel() = this.map { data ->
-    FixedIncome(
-        name = data.data('F'),
-        year = data.data('B').toInt(),
-        month = data.data('C').toInt(),
-        bank = data.data('D'),
-        type = data.data('E'),
-        group = data.data('Q'),
-        target = data.data('R'),
-        dueDate = data.data('K').toDate(),
-        liquidity = data.data('L'),
-        investment = data.data('N').toNumber(),
-        amount = data.data('O').toNumber(),
-    )
-}
+)

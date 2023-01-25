@@ -1,9 +1,8 @@
-package com.eferraz.mygooglesheetsconnector.feature.home
+package com.eferraz.mygooglesheetsconnector.app
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import com.eferraz.mygooglesheetsconnector.feature.AppNavigation
 
 class MainActivity : ComponentActivity() {
 

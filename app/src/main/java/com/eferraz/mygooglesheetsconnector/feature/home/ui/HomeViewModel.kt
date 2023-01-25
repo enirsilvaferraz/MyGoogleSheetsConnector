@@ -1,9 +1,9 @@
-package com.eferraz.mygooglesheetsconnector.feature.home
+package com.eferraz.mygooglesheetsconnector.feature.home.ui
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.eferraz.mygooglesheetsconnector.core.domain.GetHomeDataUseCase
-import com.eferraz.mygooglesheetsconnector.core.domain.SynchronizeDataBaseUseCase
+import com.eferraz.mygooglesheetsconnector.feature.home.domain.GetHomeDataUseCase
+import com.eferraz.mygooglesheetsconnector.feature.sync.domain.SynchronizeDataBaseUseCase
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow

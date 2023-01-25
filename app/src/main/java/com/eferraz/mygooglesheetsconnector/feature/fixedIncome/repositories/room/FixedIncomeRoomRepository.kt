@@ -1,7 +1,7 @@
-package com.eferraz.mygooglesheetsconnector.core.repositories
+package com.eferraz.mygooglesheetsconnector.feature.fixedIncome.repositories.room
 
-import com.eferraz.mygooglesheetsconnector.core.database.FixedIncomeDao
-import com.eferraz.mygooglesheetsconnector.core.model.FixedIncome
+import com.eferraz.mygooglesheetsconnector.feature.fixedIncome.datasources.FixedIncomeDao
+import com.eferraz.mygooglesheetsconnector.feature.fixedIncome.domain.models.FixedIncome
 import kotlinx.coroutines.flow.Flow
 import org.koin.core.annotation.Factory
 import java.time.LocalDate

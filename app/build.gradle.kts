@@ -140,36 +140,33 @@ dependencies {
     implementation(project(":providers:google_sheets"))
 
     // Android
-    implementation("androidx.core:core-ktx:1.9.0")
-    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.5.1")
-    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1")
-    //implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.5.1")
-    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.5.1") // Optional - Integration with ViewModels
+    implementation("androidx.work:work-runtime-ktx:2.7.1")
+
+    // Tests
+    testImplementation("junit:junit:4.13.2")
+    testImplementation("com.willowtreeapps.assertk:assertk-jvm:0.25")
 
     // Compose
-    implementation(platform("androidx.compose:compose-bom:2022.12.00"))
+    implementation(platform("androidx.compose:compose-bom:2023.01.00"))
     implementation("androidx.compose.material3:material3")
-    implementation("androidx.compose.material:material-icons-core") // Icons
-    implementation("androidx.compose.material:material-icons-extended") // Optional - Add full set of material icons
-    implementation("androidx.compose.material3:material3-window-size-class") // Optional - Add window size utils
-    implementation("androidx.compose.ui:ui-tooling-preview") // Android Studio Preview support
-    implementation("androidx.activity:activity-compose:1.6.1") // Optional - Integration with activities
-    debugImplementation("androidx.compose.ui:ui-tooling") // Android Studio Preview support
-    debugImplementation("androidx.compose.ui:ui-test-manifest") // UI Tests
-    //androidTestImplementation("androidx.compose.ui:ui-test-junit4") // UI Tests
+    implementation("androidx.compose.material3:material3-window-size-class")
+    implementation("androidx.compose.ui:ui")
+    implementation("androidx.compose.ui:ui-util")
+    implementation("androidx.compose.ui:ui-text-google-fonts")
+    implementation("androidx.compose.runtime:runtime")
+    implementation("androidx.compose.runtime:runtime-livedata")
+    implementation("androidx.compose.material:material")
+    implementation("androidx.compose.material:material-ripple")
+    implementation("androidx.compose.material:material-icons-extended")
+    implementation("androidx.compose.material:material-icons-core")
+    implementation("androidx.compose.ui:ui-tooling-preview")
+    debugImplementation("androidx.compose.ui:ui-tooling")
+    debugImplementation("androidx.compose.ui:ui-tooling-data")
+    debugImplementation("androidx.compose.ui:ui-tooling-preview")
 
-    // Navigation
     implementation("androidx.navigation:navigation-compose:2.5.3")
-
-    // Status Bat
     implementation("com.google.accompanist:accompanist-systemuicontroller:0.28.0")
-
-    // Unit Tests
-    testImplementation("junit:junit:4.13.2")
-
-    // WorkManager
-    implementation("androidx.work:work-runtime-ktx:2.7.1")
-    androidTestImplementation("androidx.work:work-testing:2.7.1")
+    implementation("com.google.code.gson:gson:2.10.1")
 
     // ROOM
     implementation("androidx.room:room-runtime:2.5.0")
@@ -177,14 +174,8 @@ dependencies {
     kapt("androidx.room:room-compiler:2.5.0")
     testImplementation("androidx.room:room-testing:2.5.0")
 
-    // AssertK
-    testImplementation("com.willowtreeapps.assertk:assertk-jvm:0.25")
-
     // Koin
     implementation("io.insert-koin:koin-core:3.3.2")                      // Koin Core features
-    testImplementation("io.insert-koin:koin-test:3.3.2")                  // Koin Test features
-    testImplementation("io.insert-koin:koin-test-junit4:3.3.2")           // Koin for JUnit 4
-    testImplementation("io.insert-koin:koin-test-junit5:3.3.2")           // Koin for JUnit 5
     implementation("io.insert-koin:koin-android:3.3.2")                   // Koin main features for Android
     implementation("io.insert-koin:koin-android-compat:3.3.2")            // Java Compatibility
     implementation("io.insert-koin:koin-androidx-workmanager:3.3.2")      // Jetpack WorkManager
@@ -192,4 +183,7 @@ dependencies {
     implementation("io.insert-koin:koin-androidx-compose:3.4.1")          // Jetpack Compose
     implementation("io.insert-koin:koin-annotations:1.1.0")               // Koin Annotations
     ksp("io.insert-koin:koin-ksp-compiler:1.1.0")
+    testImplementation("io.insert-koin:koin-test:3.3.2")                  // Koin Test features
+    testImplementation("io.insert-koin:koin-test-junit4:3.3.2")           // Koin for JUnit 4
+    testImplementation("io.insert-koin:koin-test-junit5:3.3.2")           // Koin for JUnit 5
 }

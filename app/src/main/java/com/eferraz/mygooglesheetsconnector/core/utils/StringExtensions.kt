@@ -1,4 +1,4 @@
-package com.eferraz.mygooglesheetsconnector.archtectureImpl.utils
+package com.eferraz.mygooglesheetsconnector.core.utils
 
 import java.text.NumberFormat
 import java.time.LocalDate

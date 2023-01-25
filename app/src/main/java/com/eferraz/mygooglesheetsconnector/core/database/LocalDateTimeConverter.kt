@@ -1,4 +1,4 @@
-package com.eferraz.mygooglesheetsconnector.archtectureImpl.database
+package com.eferraz.mygooglesheetsconnector.core.database
 
 import androidx.room.ProvidedTypeConverter
 import androidx.room.TypeConverter

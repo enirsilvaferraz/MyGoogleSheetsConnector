@@ -1,9 +1,11 @@
-package com.eferraz.mygooglesheetsconnector.core.domain
+package com.eferraz.mygooglesheetsconnector.feature.home.domain
 
-import com.eferraz.mygooglesheetsconnector.core.domain.GetHomeDataUseCase.HomeItem.*
-import com.eferraz.mygooglesheetsconnector.core.model.BaseModel
-import com.eferraz.mygooglesheetsconnector.core.model.FixedIncome
-import com.eferraz.mygooglesheetsconnector.core.repositories.FixedIncomeRoomRepository
+import com.eferraz.mygooglesheetsconnector.feature.fixedIncome.domain.models.FixedIncome
+import com.eferraz.mygooglesheetsconnector.feature.fixedIncome.repositories.room.FixedIncomeRoomRepository
+import com.eferraz.mygooglesheetsconnector.feature.home.domain.GetHomeDataUseCase.HomeItem.FixedIncome3Months
+import com.eferraz.mygooglesheetsconnector.feature.home.domain.GetHomeDataUseCase.HomeItem.FixedIncomeLiquidity
+import com.eferraz.mygooglesheetsconnector.feature.home.domain.GetHomeDataUseCase.HomeItem.FixedIncomeOverDueDate
+import com.eferraz.mygooglesheetsconnector.feature.home.domain.GetHomeDataUseCase.HomeItem.FixedIncomeThisYear
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.map
 import org.koin.core.annotation.Factory
@@ -41,7 +43,7 @@ class GetHomeDataUseCase(private val repository: FixedIncomeRoomRepository) {
         }
     }
 
-    open class HomeItem(val title: String, val data: List<BaseModel>) {
+    open class HomeItem(val title: String, val data: List<Any>) {
         data class FixedIncomeOverDueDate(val list: List<FixedIncome>) : HomeItem(title = "Renda fíxa vencida nesse mês", data = list)
         data class FixedIncomeLiquidity(val list: List<FixedIncome>) : HomeItem(title = "Liquidez diária", data = list)
         data class FixedIncome3Months(val list: List<FixedIncome>) : HomeItem(title = "A vencer em menos de 3 meses", data = list)

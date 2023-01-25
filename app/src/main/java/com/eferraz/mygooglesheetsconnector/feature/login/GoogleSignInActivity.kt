@@ -8,8 +8,8 @@ import androidx.lifecycle.lifecycleScope
 import androidx.work.OneTimeWorkRequestBuilder
 import androidx.work.WorkManager
 import com.eferraz.googlesheets.providers.GoogleSignInActivityAbs
-import com.eferraz.mygooglesheetsconnector.feature.home.MainActivity
-import com.eferraz.mygooglesheetsconnector.feature.sync.SyncGoogleSheetsWorkManager
+import com.eferraz.mygooglesheetsconnector.app.MainActivity
+import com.eferraz.mygooglesheetsconnector.feature.sync.ui.SyncGoogleSheetsWorkManager
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 

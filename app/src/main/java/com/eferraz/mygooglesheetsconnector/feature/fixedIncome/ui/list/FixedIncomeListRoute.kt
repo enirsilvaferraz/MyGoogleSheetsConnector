@@ -1,4 +1,4 @@
-package com.eferraz.mygooglesheetsconnector.feature.fixedIncome.list
+package com.eferraz.mygooglesheetsconnector.feature.fixedIncome.ui.list
 
 import android.content.res.Configuration
 import androidx.compose.foundation.layout.fillMaxSize
@@ -16,8 +16,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.eferraz.mygooglesheetsconnector.core.designsystem.theme.MyGoogleSheetsConnectorTheme
-import com.eferraz.mygooglesheetsconnector.core.domain.GetFixedIncomeListUseCase
-import com.eferraz.mygooglesheetsconnector.feature.home.homeItemHeader
+import com.eferraz.mygooglesheetsconnector.feature.fixedIncome.domain.usecases.GetFixedIncomeListUseCase
+import com.eferraz.mygooglesheetsconnector.feature.home.ui.homeItemHeader
 import org.koin.androidx.compose.koinViewModel
 
 @Composable

@@ -1,9 +1,8 @@
-package com.eferraz.mygooglesheetsconnector.core.repositories
+package com.eferraz.mygooglesheetsconnector.feature.fixedIncome.repositories.sheets
 
 import com.eferraz.googlesheets.providers.GenericSheetsDatasource
 import com.eferraz.mygooglesheetsconnector.BuildConfig
-import com.eferraz.mygooglesheetsconnector.core.model.FixedIncome
-import com.eferraz.mygooglesheetsconnector.core.model.toModel
+import com.eferraz.mygooglesheetsconnector.feature.fixedIncome.domain.models.FixedIncome
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import org.koin.core.annotation.Factory
@@ -20,5 +19,5 @@ class FixedIncomeSheetsRepositoryImpl(
     private val sheetsKey: String = BuildConfig.SHEET_KEY
     private val range: String = "'Histórico Renda Fixa'!2:1000"
 
-    override fun get(): Flow<List<FixedIncome>> = datasource.get(sheetsKey, range).map { it.toModel() }
+    override fun get(): Flow<List<FixedIncome>> = datasource.get(sheetsKey, range).map { FixedIncomeSheetsMapper.toModel(it) }
 }

@@ -1,10 +1,10 @@
-package com.eferraz.mygooglesheetsconnector.feature.sync
+package com.eferraz.mygooglesheetsconnector.feature.sync.ui
 
 import android.content.Context
 import android.util.Log
 import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
-import com.eferraz.mygooglesheetsconnector.core.domain.SynchronizeDataBaseUseCase
+import com.eferraz.mygooglesheetsconnector.feature.sync.domain.SynchronizeDataBaseUseCase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.withContext

@@ -1,10 +1,10 @@
-package com.eferraz.mygooglesheetsconnector.core.database
+package com.eferraz.mygooglesheetsconnector.feature.fixedIncome.datasources
 
 import androidx.room.Dao
 import androidx.room.MapInfo
 import androidx.room.Query
-import com.eferraz.mygooglesheetsconnector.archtectureImpl.database.GenericRoomDatasource
-import com.eferraz.mygooglesheetsconnector.core.model.FixedIncome
+import com.eferraz.mygooglesheetsconnector.core.database.GenericRoomDatasource
+import com.eferraz.mygooglesheetsconnector.feature.fixedIncome.domain.models.FixedIncome
 import kotlinx.coroutines.flow.Flow
 import java.time.LocalDate
 
@@ -33,11 +33,3 @@ interface FixedIncomeDao : GenericRoomDatasource<FixedIncome> {
         year: Int
     ): Flow<MutableList<FixedIncome>>
 }
-
-data class FixedIncomeRoomView(
-    val name: String,
-    val bank: String,
-    val dueDate: LocalDate?,
-    val investment: Double,
-    val amount: Double
-)

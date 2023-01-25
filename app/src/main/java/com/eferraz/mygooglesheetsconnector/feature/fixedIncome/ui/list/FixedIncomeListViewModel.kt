@@ -1,7 +1,7 @@
-package com.eferraz.mygooglesheetsconnector.feature.fixedIncome.list
+package com.eferraz.mygooglesheetsconnector.feature.fixedIncome.ui.list
 
 import androidx.lifecycle.ViewModel
-import com.eferraz.mygooglesheetsconnector.core.domain.GetFixedIncomeListUseCase
+import com.eferraz.mygooglesheetsconnector.feature.fixedIncome.domain.usecases.GetFixedIncomeListUseCase
 import kotlinx.coroutines.flow.Flow
 import org.koin.android.annotation.KoinViewModel
 

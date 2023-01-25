@@ -1,4 +1,4 @@
-package com.eferraz.mygooglesheetsconnector.feature.fixedIncome.list
+package com.eferraz.mygooglesheetsconnector.feature.fixedIncome.ui.list
 
 import android.content.res.Configuration.UI_MODE_NIGHT_NO
 import android.content.res.Configuration.UI_MODE_NIGHT_YES
@@ -23,10 +23,10 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.eferraz.mygooglesheetsconnector.archtectureImpl.utils.toCurrency
+import com.eferraz.mygooglesheetsconnector.core.utils.toCurrency
 import com.eferraz.mygooglesheetsconnector.core.designsystem.theme.MyGoogleSheetsConnectorTheme
-import com.eferraz.mygooglesheetsconnector.core.model.FixedIncome
-import com.eferraz.mygooglesheetsconnector.feature.home.mockFixedIncomeList
+import com.eferraz.mygooglesheetsconnector.feature.fixedIncome.domain.models.FixedIncome
+import com.eferraz.mygooglesheetsconnector.feature.home.ui.mockFixedIncomeList
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 

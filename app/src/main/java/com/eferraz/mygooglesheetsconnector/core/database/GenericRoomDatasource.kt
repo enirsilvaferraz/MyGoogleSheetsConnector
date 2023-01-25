@@ -1,4 +1,4 @@
-package com.eferraz.mygooglesheetsconnector.archtectureImpl.database
+package com.eferraz.mygooglesheetsconnector.core.database
 
 import androidx.room.Delete
 import androidx.room.Insert
