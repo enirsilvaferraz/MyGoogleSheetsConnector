@@ -62,7 +62,7 @@ fun List<List<Any>>.toModel() = map { list ->
                     investment = it.investment,
                     amount = it.amount,
                     target = it.target,
-                    fixedIncomeUuid = uuid
+                    fixedIncome = uuid
                 )
             }
         )

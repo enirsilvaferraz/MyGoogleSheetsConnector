@@ -89,7 +89,7 @@
             "notNull": true
           },
           {
-            "fieldPath": "fixedIncomeUuid",
+            "fieldPath": "fixedIncome",
             "columnName": "fixedIncome",
             "affinity": "TEXT",
             "notNull": true

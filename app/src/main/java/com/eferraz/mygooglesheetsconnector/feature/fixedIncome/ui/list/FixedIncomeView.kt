@@ -25,7 +25,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.eferraz.mygooglesheetsconnector.core.designsystem.theme.MyGoogleSheetsConnectorTheme
 import com.eferraz.mygooglesheetsconnector.core.utils.toCurrency
-import com.eferraz.mygooglesheetsconnector.feature.fixedIncome.domain.models.FixedIncomeWithHistory
+import com.eferraz.mygooglesheetsconnector.feature.fixedIncome.domain.models.FixedIncomeAndHistory
 import com.eferraz.mygooglesheetsconnector.feature.home.ui.mockFixedIncomeList
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
@@ -80,13 +80,13 @@ fun FixedIncomeView(modifier: Modifier = Modifier, avatarLabel: String, primaryT
 }
 
 @Composable
-fun FixedIncomeView(modifier: Modifier = Modifier, data: FixedIncomeWithHistory) {
+fun FixedIncomeView(modifier: Modifier = Modifier, data: FixedIncomeAndHistory) {
     FixedIncomeView(
         modifier = modifier,
         avatarLabel = data.fixedIncome.type,
         primaryText = data.fixedIncome.name,
         secondText = data.fixedIncome.dueDate?.let { LocalDate.from(data.fixedIncome.dueDate).format(DateTimeFormatter.ofPattern("d 'de' MMMM 'de' yyyy")) } ?: "Diária",
-        tertiaryText = data.history[0].amount.toCurrency()
+        tertiaryText = data.history.amount.toCurrency()
     )
 }
 

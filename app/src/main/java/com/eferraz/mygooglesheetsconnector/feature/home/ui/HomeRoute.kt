@@ -40,8 +40,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.eferraz.mygooglesheetsconnector.core.designsystem.theme.MyGoogleSheetsConnectorTheme
 import com.eferraz.mygooglesheetsconnector.feature.fixedIncome.domain.models.FixedIncome
+import com.eferraz.mygooglesheetsconnector.feature.fixedIncome.domain.models.FixedIncomeAndHistory
 import com.eferraz.mygooglesheetsconnector.feature.fixedIncome.domain.models.FixedIncomeHistory
-import com.eferraz.mygooglesheetsconnector.feature.fixedIncome.domain.models.FixedIncomeWithHistory
 import com.eferraz.mygooglesheetsconnector.feature.fixedIncome.ui.list.FixedIncomeView
 import com.eferraz.mygooglesheetsconnector.feature.home.domain.GetHomeDataUseCase
 import org.koin.androidx.compose.koinViewModel
@@ -103,7 +103,7 @@ private fun ContentScreen(modifier: Modifier, data: List<GetHomeDataUseCase.Home
             homeItemHeader(it.title)
             items(it.data) {
                 when (it) {
-                    is FixedIncomeWithHistory -> FixedIncomeView(data = it)
+                    is FixedIncomeAndHistory -> FixedIncomeView(data = it)
                 }
             }
             homeItemFooter(onFixedIncomeHeaderClicked)
@@ -159,10 +159,10 @@ fun HomeRoutePreview() {
     }
 }
 
-val mockFixedIncomeList = arrayListOf<FixedIncomeWithHistory>().apply {
+val mockFixedIncomeList = arrayListOf<FixedIncomeAndHistory>().apply {
     repeat(5) {
         add(
-            FixedIncomeWithHistory(
+            FixedIncomeAndHistory(
                 fixedIncome = FixedIncome(
                     uuid = "A",
                     name = "CDB de 120% do CDI do Banco Máxima",
@@ -171,15 +171,13 @@ val mockFixedIncomeList = arrayListOf<FixedIncomeWithHistory>().apply {
                     dueDate = LocalDate.now(),
                     liquidity = "Diária"
                 ),
-                history = listOf(
-                    FixedIncomeHistory(
-                        year = 2023,
-                        month = 1,
-                        fixedIncomeUuid = "A",
-                        amount = 1000.0,
-                        investment = 100.0,
-                        target = "Aposentadoria"
-                    )
+                history = FixedIncomeHistory(
+                    year = 2023,
+                    month = 1,
+                    fixedIncome = "A",
+                    amount = 1000.0,
+                    investment = 100.0,
+                    target = "Aposentadoria"
                 )
             )
         )

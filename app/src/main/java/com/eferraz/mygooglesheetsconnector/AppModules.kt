@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.room.Room
 import com.eferraz.googlesheets.SheetsModules
 import com.eferraz.mygooglesheetsconnector.core.database.AppDatabase
+import com.eferraz.mygooglesheetsconnector.feature.fixedIncome.datasources.FixedIncomeAndHistoryDao
 import com.eferraz.mygooglesheetsconnector.feature.fixedIncome.datasources.FixedIncomeWithHistoryDao
 import org.koin.core.annotation.ComponentScan
 import org.koin.core.annotation.Module
@@ -18,4 +19,7 @@ class AppModules {
 
     @Singleton
     fun getFixedIncomeWithHistoryDao(database: AppDatabase): FixedIncomeWithHistoryDao = database.getFixedIncomeWithHistoryDao()
+
+    @Singleton
+    fun getFixedIncomeAndHistoryDao(database: AppDatabase): FixedIncomeAndHistoryDao = database.getFixedIncomeAndHistoryDao()
 }
