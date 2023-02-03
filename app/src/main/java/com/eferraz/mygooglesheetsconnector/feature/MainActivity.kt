@@ -1,4 +1,4 @@
-package com.eferraz.mygooglesheetsconnector.app
+package com.eferraz.mygooglesheetsconnector.feature
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity

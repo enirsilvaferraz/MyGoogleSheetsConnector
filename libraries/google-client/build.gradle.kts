@@ -103,7 +103,7 @@ dependencies {
     implementation("com.google.api-client:google-api-client-android:1.35.0")
 
     // Firebase
-    implementation(platform("com.google.firebase:firebase-bom:31.1.1"))
+    implementation(platform("com.google.firebase:firebase-bom:31.2.0"))
     implementation("com.google.firebase:firebase-analytics-ktx")
     implementation("com.google.firebase:firebase-auth")
     implementation("com.google.firebase:firebase-auth-ktx")

@@ -91,6 +91,7 @@ plugins {
 
     composeOptions {
         kotlinCompilerExtensionVersion = "1.4.0-alpha02"
+        useLiveLiterals = true
     }
 
     kotlinOptions {
@@ -163,9 +164,10 @@ dependencies {
     debugImplementation("androidx.compose.ui:ui-tooling-data")
     debugImplementation("androidx.compose.ui:ui-tooling-preview")
 
+    implementation("com.google.code.gson:gson:2.10.1")
     implementation("androidx.navigation:navigation-compose:2.5.3")
     implementation("com.google.accompanist:accompanist-systemuicontroller:0.28.0")
-    implementation("com.google.code.gson:gson:2.10.1")
+    implementation("com.google.accompanist:accompanist-navigation-animation:0.29.1-alpha")
 
     // ROOM
     implementation("androidx.room:room-runtime:2.5.0")

@@ -5,7 +5,11 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.rounded.ArrowBack
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.LargeTopAppBar
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -35,7 +39,12 @@ fun FixedIncomeListRoute(vm: FixedIncomeListViewModel = koinViewModel(), onBackC
 private fun FixedIncomeListScreen(data: List<GetFixedIncomeListUseCase.Grouped>, onBackClick: () -> Unit) {
 
     Scaffold(
-        topBar = { LargeTopAppBar(title = { Text(text = "Renda Fíxa") }) },
+        topBar = {
+            LargeTopAppBar(
+                title = { Text(text = "Renda Fíxa") },
+                navigationIcon = { IconButton(onClick = onBackClick) { Icon(Icons.Rounded.ArrowBack, "") } }
+            )
+        },
         modifier = Modifier.fillMaxSize()
     ) { paddingValues ->
         ContentScreen(modifier = Modifier.padding(paddingValues), data)
