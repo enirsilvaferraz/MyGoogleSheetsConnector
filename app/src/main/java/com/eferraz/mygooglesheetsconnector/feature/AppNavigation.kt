@@ -1,5 +1,6 @@
 package com.eferraz.mygooglesheetsconnector.feature
 
+import androidx.activity.compose.BackHandler
 import androidx.compose.animation.AnimatedVisibilityScope
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.animation.core.FastOutSlowInEasing
@@ -15,6 +16,7 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import com.eferraz.mygooglesheetsconnector.feature.fixedIncome.ui.list.FixedIncomeListRoute
 import com.eferraz.mygooglesheetsconnector.feature.home.ui.HomeRoute
+import com.eferraz.mygooglesheetsconnector.feature.login.LoginRoute
 import com.google.accompanist.navigation.animation.AnimatedNavHost
 import com.google.accompanist.navigation.animation.composable
 import com.google.accompanist.navigation.animation.rememberAnimatedNavController
@@ -23,7 +25,19 @@ import com.google.accompanist.navigation.animation.rememberAnimatedNavController
 @Composable
 fun AppNavigation(navController: NavHostController = rememberAnimatedNavController()) {
 
-    AnimatedNavHost(navController = navController, startDestination = "HomeRoute") {
+    BackHandler(enabled = false, onBack = {
+        navController.popBackStack()
+    })
+
+    AnimatedNavHost(navController = navController, startDestination = "Login") {
+
+        animatedComposable(route = "Login") {
+            LoginRoute(onFinish = {
+                navController.navigate("HomeRoute") {
+                    popUpTo(navController.graph.id) { inclusive = true }
+                }
+            })
+        }
 
         animatedComposable(route = "FixedIncomeList") {
             FixedIncomeListRoute(onBackClick = navController::popBackStack)
@@ -54,7 +68,7 @@ private fun NavGraphBuilder.animatedComposable(
 
 private object NavigationTransition {
 
-    private val animation: FiniteAnimationSpec<IntOffset> = tween(easing = FastOutSlowInEasing, durationMillis = 250)
+    private val animation: FiniteAnimationSpec<IntOffset> = tween(easing = FastOutSlowInEasing, durationMillis = 500)
 
     val outToLeft = slideOutHorizontally(animationSpec = animation) { fullWidth -> -fullWidth }
     val inFromRight = slideInHorizontally(animationSpec = animation) { fullWidth -> fullWidth }

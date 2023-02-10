@@ -8,6 +8,7 @@ import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.onCompletion
 import kotlinx.coroutines.launch
@@ -24,9 +25,12 @@ class HomeViewModel constructor(getHomeDataUseCase: GetHomeDataUseCase, private 
 
     fun onSyncClicked() {
         viewModelScope.launch(IO) {
-            synchronizeUseCase().onCompletion {
-                _message.value = if (it != null) "Sincronização Falhou!" else "Sincronização concluída!"
-            }.collect()
+            synchronizeUseCase()
+                .onCompletion {
+                    _message.value = if (it != null) "Sincronização Falhou!" else "Sincronização concluída!"
+                }.catch {
+                    _message.value = "Sincronização Falhou!"
+                }.collect()
         }
     }
 }

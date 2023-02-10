@@ -142,6 +142,11 @@ dependencies {
     // Android
     implementation("androidx.work:work-runtime-ktx:2.7.1")
 
+    implementation("com.google.android.gms:play-services-basement:18.1.0")
+    implementation("com.google.apis:google-api-services-sheets:v4-rev20210629-1.32.1")
+    implementation("com.google.android.gms:play-services-auth:20.3.0")
+    implementation("com.google.api-client:google-api-client-android:1.35.0")
+
     // Tests
     testImplementation("junit:junit:4.13.2")
     testImplementation("com.willowtreeapps.assertk:assertk-jvm:0.25")

@@ -57,7 +57,6 @@ fun HomeRoute(viewModel: HomeViewModel = koinViewModel(), onFixedIncomeHeaderCli
         HomeScreen(modifier = Modifier, uiState, onFixedIncomeHeaderClicked, onSyncClicked = viewModel::onSyncClicked)
     }
 
-
     if (message.isNotBlank()) {
         val current = LocalContext.current
         LaunchedEffect(key1 = message, block = {
